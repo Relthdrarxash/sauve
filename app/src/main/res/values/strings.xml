@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Sauve</string>
+    <string name="app_tagline">Premiers secours anti-panique</string>
+    <string name="emergency_call">Appel d\'Urgence</string>
+    <string name="samu_15">15 · SAMU</string>
+    <string name="pompiers_18">18 · Pompiers</string>
+    <string name="europe_112">112 · Urgence Europe</string>
+    <string name="sms_114">114 · SMS Urgence</string>
+</resources>

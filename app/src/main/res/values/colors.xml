@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ground">#101418</color>
+    <color name="emergency_red">#D32F2F</color>
+    <color name="icon_bg">#D32F2F</color>
+    <color name="icon_fg">#FFFFFF</color>
+</resources>
