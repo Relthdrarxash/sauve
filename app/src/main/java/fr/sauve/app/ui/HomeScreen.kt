@@ -95,7 +95,7 @@ fun HomeScreen(
                 shape = RoundedCornerShape(10.dp),
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
             ) {
-                Text("📚 Fiches PSC1", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                Text("Fiches PSC1", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
             }
         }
 
@@ -163,7 +163,6 @@ fun HomeScreen(
         EmergencyHeroButton(
             category = EmergencyCategory.CARDIAC_ARREST,
             badge = "110 BPM",
-            iconSymbol = "❤️",
             backgroundColor = EmergencyRed,
             onClick = { onSelectCategory(EmergencyCategory.CARDIAC_ARREST) },
         )
@@ -173,7 +172,6 @@ fun HomeScreen(
         EmergencyHeroButton(
             category = EmergencyCategory.CHOKING,
             badge = "5 TAPES / HEIMLICH",
-            iconSymbol = "✋",
             backgroundColor = EmergencyOrange,
             onClick = { onSelectCategory(EmergencyCategory.CHOKING) },
         )
@@ -183,7 +181,6 @@ fun HomeScreen(
         EmergencyHeroButton(
             category = EmergencyCategory.BLEEDING,
             badge = "COMPRESSION CONTINUE",
-            iconSymbol = "🩸",
             backgroundColor = EmergencyCrimson,
             onClick = { onSelectCategory(EmergencyCategory.BLEEDING) },
         )
@@ -193,7 +190,6 @@ fun HomeScreen(
         EmergencyHeroButton(
             category = EmergencyCategory.RECOVERY_AND_BURNS,
             badge = "PLS · 15 MIN EAU",
-            iconSymbol = "🛡️",
             backgroundColor = EmergencyBlue,
             onClick = { onSelectCategory(EmergencyCategory.RECOVERY_AND_BURNS) },
         )
@@ -250,7 +246,6 @@ private fun EmergencyCallButton(
 private fun EmergencyHeroButton(
     category: EmergencyCategory,
     badge: String,
-    iconSymbol: String,
     backgroundColor: Color,
     onClick: () -> Unit,
 ) {
@@ -304,12 +299,16 @@ private fun EmergencyHeroButton(
 
             Box(
                 modifier = Modifier
-                    .size(54.dp)
-                    .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.2f)),
+                    .background(Color.White.copy(alpha = 0.2f), RoundedCornerShape(12.dp))
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                Text(iconSymbol, fontSize = 24.sp)
+                Text(
+                    "${category.actionVerb} →",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                )
             }
         }
     }

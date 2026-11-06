@@ -194,7 +194,7 @@ fun RecoveryScreen(
                                 .fillMaxWidth()
                                 .height(54.dp),
                         ) {
-                            Text("📞 Alerter le 15 (SAMU)", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("Alerter le 15 (SAMU)", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -248,7 +248,7 @@ fun RecoveryScreen(
                                 .fillMaxWidth()
                                 .height(52.dp),
                         ) {
-                            Text(if (isBurnTimerRunning) "⏸ Mettre en pause" else "▶ Démarrer les 15 minutes", fontWeight = FontWeight.Bold)
+                            Text(if (isBurnTimerRunning) "Mettre en pause" else "Démarrer les 15 minutes", fontWeight = FontWeight.Bold)
                         }
 
                         Spacer(modifier = Modifier.height(20.dp))
@@ -260,10 +260,10 @@ fun RecoveryScreen(
                                 .padding(14.dp),
                             verticalArrangement = Arrangement.spacedBy(6.dp),
                         ) {
-                            Text("❌ Ne jamais mettre de glaçons (risque de gelure).", color = EmergencyOrange, fontWeight = FontWeight.Bold)
-                            Text("❌ Ne mettre ni beurre, ni huile, ni dentifrice.", color = EmergencyOrange, fontWeight = FontWeight.Bold)
-                            Text("❌ Ne percez jamais les cloques.", color = EmergencyOrange, fontWeight = FontWeight.Bold)
-                            Text("✓ Retirez bagues et montres avant que la zone ne gonfle.")
+                            Text("• Ne jamais mettre de glaçons (risque de gelure).", color = EmergencyOrange, fontWeight = FontWeight.Bold)
+                            Text("• Ne mettre ni beurre, ni huile, ni dentifrice.", color = EmergencyOrange, fontWeight = FontWeight.Bold)
+                            Text("• Ne percez jamais les cloques.", color = EmergencyOrange, fontWeight = FontWeight.Bold)
+                            Text("• Retirez bagues et montres avant que la zone ne gonfle.")
                         }
                     }
                 }
@@ -307,7 +307,7 @@ fun RecoveryScreen(
                                 .fillMaxWidth()
                                 .height(56.dp),
                         ) {
-                            Text("📞 Appeler le 15 (SAMU)", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("Appeler le 15 (SAMU)", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }

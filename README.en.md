@@ -16,10 +16,10 @@ In an emergency, adrenaline and panic induce tunnel vision and motor impairment.
 
 | Emergency | What the app does | Medical guidelines |
 |---|---|---|
-| **❤️ Cardiac Arrest** | Rapid consciousness & breathing check, direct emergency call (15 / 112), **haptic metronome at 110 bpm** in pocket, spoken compression count (continuous or 30:2), 2-minute rescuer relay alarm, AED guide. | ERC 2021 / PSC1 |
-| **✋ Choking (Airway Obstruction)** | Partial vs complete obstruction detection, guided **5 back blows / 5 abdominal thrusts (Heimlich)** cycle, Mofenson infant variation, instant 1-tap transition if victim loses consciousness. | PSC1 / ERC |
-| **🩸 Severe Bleeding** | **Continuous manual direct pressure** instructions, duration timer, hands-free speakerphone emergency call, foreign body advice, tourniquet guidance with time logger. | PSC1 |
-| **🛡️ Recovery (PLS) & Burns** | Step-by-step **Recovery Position (PLS)** for unconscious breathing victims, **15-minute cooling water timer** (15-15-15 rule), FAST stroke recognition test. | PSC1 / Burns guidelines |
+| **Cardiac Arrest** | Rapid consciousness & breathing check, direct emergency call (15 / 112), **haptic metronome at 110 bpm** in pocket, spoken compression count (continuous or 30:2), 2-minute rescuer relay alarm, AED guide. | ERC 2021 / PSC1 |
+| **Choking (Airway Obstruction)** | Partial vs complete obstruction detection, guided **5 back blows / 5 abdominal thrusts (Heimlich)** cycle, Mofenson infant variation, instant 1-tap transition if victim loses consciousness. | PSC1 / ERC |
+| **Severe Bleeding** | **Continuous manual direct pressure** instructions, duration timer, hands-free speakerphone emergency call, foreign body advice, tourniquet guidance with time logger. | PSC1 |
+| **Recovery (PLS) & Burns** | Step-by-step **Recovery Position (PLS)** for unconscious breathing victims, **15-minute cooling water timer** (15-15-15 rule), FAST stroke recognition test. | PSC1 / Burns guidelines |
 
 ---
 

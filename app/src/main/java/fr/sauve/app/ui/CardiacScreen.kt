@@ -218,7 +218,7 @@ fun CardiacScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text(
-                            "🚨 Alerte Urgente",
+                            "Alerte Urgente",
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = EmergencyRed,
@@ -253,7 +253,7 @@ fun CardiacScreen(
                                 .height(56.dp),
                             shape = RoundedCornerShape(12.dp),
                         ) {
-                            Text("📞 Appeler le 15 (SAMU)", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                            Text("Appeler le 15 (SAMU)", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                         }
                         Spacer(modifier = Modifier.height(12.dp))
                         OutlinedButton(
@@ -340,7 +340,7 @@ private fun CprActiveScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = if (isBreathingPhase) "💨 INSUFFLATIONS" else "⚡ 110 BPM",
+                    text = if (isBreathingPhase) "INSUFFLATIONS" else "110 BPM",
                     fontWeight = FontWeight.Bold,
                     color = if (isBreathingPhase) EmergencyOrange else EmergencyRed,
                     fontSize = 18.sp,
@@ -420,7 +420,7 @@ private fun CprActiveScreen(
                 border = if (isRunning) BorderStroke(2.dp, EmergencyRed) else null,
             ) {
                 Text(
-                    text = if (isRunning) "⏸ Mettre en pause" else "▶ Lancer le métronome (110 bpm)",
+                    text = if (isRunning) "Mettre en pause" else "Lancer le métronome (110 bpm)",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -440,7 +440,7 @@ private fun CprActiveScreen(
                         .height(48.dp),
                     shape = RoundedCornerShape(12.dp),
                 ) {
-                    Text("⚡ DAE disponible", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EmergencyGreen)
+                    Text("DAE disponible", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EmergencyGreen)
                 }
                 OutlinedButton(
                     onClick = onToggleMode,
@@ -528,7 +528,7 @@ private fun DaeGuideDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text("⚡ Consignes Défibrillateur (DAE)", fontWeight = FontWeight.Bold, color = EmergencyGreen)
+            Text("Consignes Défibrillateur (DAE)", fontWeight = FontWeight.Bold, color = EmergencyGreen)
         },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {

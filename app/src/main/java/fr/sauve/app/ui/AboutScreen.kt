@@ -107,10 +107,10 @@ fun AboutScreen(
                         .padding(14.dp),
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
-                    Text("🛡️ Aucune permission INTERNET (étanchéité absolue)", fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 13.sp)
-                    Text("⚡ Démarrage immédiat sans compte ni écran de veille", fontSize = 13.sp)
-                    Text("📳 Métronome haptique haute précision à 110 bpm", fontSize = 13.sp)
-                    Text("🗣️ Synthèse vocale pas-à-pas mains-libres", fontSize = 13.sp)
+                    Text("• Aucune permission INTERNET (étanchéité absolue)", fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 13.sp)
+                    Text("• Démarrage immédiat sans compte ni écran de veille", fontSize = 13.sp)
+                    Text("• Métronome haptique haute précision à 110 bpm", fontSize = 13.sp)
+                    Text("• Synthèse vocale pas-à-pas mains-libres", fontSize = 13.sp)
                 }
             }
         }

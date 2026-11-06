@@ -16,10 +16,10 @@ Sous l'effet du stress et de l'adrénaline, la mémoire flanche et la vue se ré
 
 | Urgence | Ce que fait l'application | Référentiel médical |
 |---|---|---|
-| **❤️ Arrêt Cardiaque** | Diagnostic express conscience/respiration, appel direct SAMU 15 / 112, **métronome haptique à 110 bpm** dans la poche, guidage vocal du compte des compressions (continu ou 30:2), alerte de relais toutes les 2 minutes, guide DAE. | ERC 2021 / PSC1 |
-| **✋ Étouffement Aigu** | Détection immédiate obstruction partielle vs totale, boucle guidée **5 claques dans le dos / 5 compressions abdominales (Heimlich)**, variante Mofenson pour nourrisson, bascule d'urgence en 1 tap en cas de perte de connaissance. | PSC1 / ERC |
-| **🩸 Hémorragie Grave** | Consignes de **compression manuelle directe continue**, chronomètre de maintien, alerte haut-parleur SAMU, gestion des corps étrangers et pose de garrot avec enregistrement de l'heure. | PSC1 |
-| **🛡️ Inconscient (PLS) & Brûlures** | Guidage pas-à-pas de la **Position Latérale de Sécurité** pour personne inconsciente qui respire, **minuteur de 15 minutes** pour le refroidissement sous l'eau (règle des 15-15-15), test FAST pour AVC. | PSC1 / Recommandations Brûlures |
+| **Arrêt Cardiaque** | Diagnostic express conscience/respiration, appel direct SAMU 15 / 112, **métronome haptique à 110 bpm** dans la poche, guidage vocal du compte des compressions (continu ou 30:2), alerte de relais toutes les 2 minutes, guide DAE. | ERC 2021 / PSC1 |
+| **Étouffement Aigu** | Détection immédiate obstruction partielle vs totale, boucle guidée **5 claques dans le dos / 5 compressions abdominales (Heimlich)**, variante Mofenson pour nourrisson, bascule d'urgence en 1 tap en cas de perte de connaissance. | PSC1 / ERC |
+| **Hémorragie Grave** | Consignes de **compression manuelle directe continue**, chronomètre de maintien, alerte haut-parleur SAMU, gestion des corps étrangers et pose de garrot avec enregistrement de l'heure. | PSC1 |
+| **Inconscient (PLS) & Brûlures** | Guidage pas-à-pas de la **Position Latérale de Sécurité** pour personne inconsciente qui respire, **minuteur de 15 minutes** pour le refroidissement sous l'eau (règle des 15-15-15), test FAST pour AVC. | PSC1 / Recommandations Brûlures |
 
 ---
 

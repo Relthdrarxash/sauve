@@ -115,7 +115,7 @@ fun BleedingScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    "🩸 COMPRESSION DIRECTE",
+                    "COMPRESSION DIRECTE",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Black,
                     color = EmergencyCrimson,
@@ -129,7 +129,7 @@ fun BleedingScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    "⚠️ NE RELÂCHEZ JAMAIS LA PRESSION, même pour regarder si le saignement a diminué.",
+                    "Important : Ne relâchez jamais la pression, même pour regarder si le saignement a diminué.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = EmergencyOrange,
                     textAlign = TextAlign.Center,
@@ -154,7 +154,7 @@ fun BleedingScreen(
                 tourniquetTime?.let { time ->
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        "⏰ Garrot posé à : $time",
+                        "Garrot posé à : $time",
                         fontWeight = FontWeight.Bold,
                         color = EmergencyOrange,
                         fontSize = 15.sp,
@@ -175,7 +175,7 @@ fun BleedingScreen(
                         .fillMaxWidth()
                         .height(58.dp),
                 ) {
-                    Text("📞 Appeler le 15 (SAMU en haut-parleur)", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    Text("Appeler le 15 (SAMU en haut-parleur)", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -225,7 +225,7 @@ fun BleedingScreen(
         if (showForeignBodyDialog) {
             AlertDialog(
                 onDismissRequest = { showForeignBodyDialog = false },
-                title = { Text("⚠️ Corps étranger dans la plaie", fontWeight = FontWeight.Bold, color = EmergencyOrange) },
+                title = { Text("Corps étranger dans la plaie", fontWeight = FontWeight.Bold, color = EmergencyOrange) },
                 text = {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text("• NE RETIREZ JAMAIS l'objet (couteau, éclat de verre, morceau de métal). Il fait actuellement office de bouchon hémostatique.")

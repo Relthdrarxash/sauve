@@ -118,7 +118,7 @@ fun ChokingScreen(
                     .fillMaxWidth()
                     .height(52.dp),
             ) {
-                Text("🚨 La victime s'effondre / Perte de connaissance", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                Text("La victime s'effondre / Perte de connaissance", fontSize = 14.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -194,7 +194,7 @@ fun ChokingScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text(
-                            "⚠️ Obstruction Partielle",
+                            "Obstruction Partielle",
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = EmergencyGreen,
@@ -207,7 +207,7 @@ fun ChokingScreen(
                         )
                         Spacer(modifier = Modifier.height(14.dp))
                         Text(
-                            "👉 Dites-lui fermement : « Toussez fort ! Ne vous retenez pas ! »",
+                            "Consigne : « Toussez fort ! Ne vous retenez pas ! »",
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold,
                             color = EmergencyGreen,
@@ -313,7 +313,7 @@ fun ChokingScreen(
                                 .fillMaxWidth()
                                 .height(50.dp),
                         ) {
-                            Text("✓ L'objet est expulsé !", fontWeight = FontWeight.Bold)
+                            Text("L'objet est expulsé !", fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -394,7 +394,7 @@ fun ChokingScreen(
                                 .fillMaxWidth()
                                 .height(50.dp),
                         ) {
-                            Text("✓ L'objet est expulsé !", fontWeight = FontWeight.Bold)
+                            Text("L'objet est expulsé !", fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -415,7 +415,7 @@ fun ChokingScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text(
-                            "✅ Voies Aériennes Libérées",
+                            "Voies Aériennes Libérées",
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = EmergencyGreen,
