@@ -1,5 +1,18 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.tr
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Switch
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.semantics.Role
+import fr.sauve.app.reminder.ReviewReminder
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +27,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -48,8 +62,14 @@ fun HomeScreen(
     onSelectCategory: (EmergencyCategory) -> Unit,
     onOpenGuide: () -> Unit,
     onOpenAbout: () -> Unit,
+    onOpenTraining: () -> Unit = {},
 ) {
     val context = LocalContext.current
+    var reviewOn by remember { mutableStateOf(ReviewReminder.isEnabled(context)) }
+    val notificationPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        ReviewReminder.setEnabled(context, granted)
+        reviewOn = granted
+    }
 
     fun callNumber(num: String) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$num"))
@@ -83,7 +103,7 @@ fun HomeScreen(
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 Text(
-                    text = "Premiers secours anti-panique",
+                    text = tr("Premiers secours anti-panique", "Anti-panic first aid"),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -95,7 +115,7 @@ fun HomeScreen(
                 shape = RoundedCornerShape(10.dp),
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
             ) {
-                Text("Fiches PSC1", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                Text(tr("Fiches PSC1", "First aid sheets"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
             }
         }
 
@@ -109,7 +129,7 @@ fun HomeScreen(
         ) {
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(
-                    "APPELS D'URGENCE (1 TAP)",
+                    tr("APPELS D'URGENCE (1 TAP)", "EMERGENCY CALLS (1 TAP)"),
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -120,25 +140,25 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     EmergencyCallButton(
-                        label = "15 SAMU",
+                        label = tr("15 SAMU", "15 Medical"),
                         color = EmergencyRed,
                         modifier = Modifier.weight(1f),
                         onClick = { callNumber("15") },
                     )
                     EmergencyCallButton(
-                        label = "18 Pompiers",
+                        label = tr("18 Pompiers", "18 Fire"),
                         color = EmergencyOrange,
                         modifier = Modifier.weight(1f),
                         onClick = { callNumber("18") },
                     )
                     EmergencyCallButton(
-                        label = "112 Europe",
+                        label = tr("112 Europe", "112 Europe"),
                         color = EmergencyBlue,
                         modifier = Modifier.weight(1f),
                         onClick = { callNumber("112") },
                     )
                     EmergencyCallButton(
-                        label = "114 SMS",
+                        label = tr("114 SMS", "114 SMS"),
                         color = MaterialTheme.colorScheme.outline,
                         modifier = Modifier.weight(0.9f),
                         onClick = { sendSms("114") },
@@ -150,7 +170,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(18.dp))
 
         Text(
-            text = "QUELLE EST L'URGENCE ?",
+            text = tr("QUELLE EST L'URGENCE ?", "WHAT IS THE EMERGENCY?"),
             style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -171,7 +191,7 @@ fun HomeScreen(
 
         EmergencyHeroButton(
             category = EmergencyCategory.CHOKING,
-            badge = "5 TAPES / HEIMLICH",
+            badge = tr("5 TAPES / HEIMLICH", "5 BLOWS / HEIMLICH"),
             backgroundColor = EmergencyOrange,
             onClick = { onSelectCategory(EmergencyCategory.CHOKING) },
         )
@@ -180,7 +200,7 @@ fun HomeScreen(
 
         EmergencyHeroButton(
             category = EmergencyCategory.BLEEDING,
-            badge = "COMPRESSION CONTINUE",
+            badge = tr("COMPRESSION CONTINUE", "CONSTANT PRESSURE"),
             backgroundColor = EmergencyCrimson,
             onClick = { onSelectCategory(EmergencyCategory.BLEEDING) },
         )
@@ -189,12 +209,47 @@ fun HomeScreen(
 
         EmergencyHeroButton(
             category = EmergencyCategory.RECOVERY_AND_BURNS,
-            badge = "PLS · 15 MIN EAU",
+            badge = tr("PLS · 15 MIN EAU", "RECOVERY · 15 MIN WATER"),
             backgroundColor = EmergencyBlue,
             onClick = { onSelectCategory(EmergencyCategory.RECOVERY_AND_BURNS) },
         )
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        // Hors urgence : s'entraîner, pour que les gestes soient là le jour J.
+        OutlinedButton(
+            onClick = onOpenTraining,
+            shape = RoundedCornerShape(14.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 52.dp),
+        ) {
+            Text(tr("S'entraîner au massage cardiaque (2 min)", "Practise chest compressions (2 min)"), fontWeight = FontWeight.SemiBold)
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 48.dp)
+                .toggleable(value = reviewOn, role = Role.Switch) { on ->
+                    if (on && !ReviewReminder.canNotify(context) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        ReviewReminder.setEnabled(context, on)
+                        reviewOn = on
+                    }
+                }
+                .padding(horizontal = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                tr("Me proposer une révision tous les 3 mois", "Suggest a refresher every 3 months"),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            Switch(checked = reviewOn, onCheckedChange = null)
+        }
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Pied de page discret
         Row(
@@ -203,12 +258,12 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                "Sauve • 100% hors-ligne & éthique • ",
+                tr("Sauve • 100% hors-ligne & éthique • ", "Sauve • 100% offline & ethical • "),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Text(
-                "À propos",
+                tr("À propos", "About"),
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
@@ -229,15 +284,18 @@ private fun EmergencyCallButton(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = color),
         shape = RoundedCornerShape(10.dp),
-        modifier = modifier.height(44.dp),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 4.dp),
+        // 56 dp et texte sur deux lignes : cible facile à toucher sous le stress, libellé jamais coupé.
+        modifier = modifier.heightIn(min = 56.dp),
+        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 4.dp, vertical = 6.dp),
     ) {
         Text(
             label,
-            fontSize = 11.sp,
+            fontSize = 13.sp,
+            lineHeight = 15.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
-            maxLines = 1,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+            maxLines = 2,
         )
     }
 }

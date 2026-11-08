@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Sauve</string>
-    <string name="app_tagline">Premiers secours anti-panique</string>
-    <string name="emergency_call">Appel d\'Urgence</string>
-    <string name="samu_15">15 · SAMU</string>
-    <string name="pompiers_18">18 · Pompiers</string>
-    <string name="europe_112">112 · Urgence Europe</string>
-    <string name="sms_114">114 · SMS Urgence</string>
+    <string name="widget_title" translatable="false">Sauve · SOS</string>
+    <string name="app_tagline">Anti-panic first aid</string>
+    <string name="emergency_call">Emergency Call</string>
+    <string name="samu_15">15 · Medical</string>
+    <string name="pompiers_18">18 · Fire / Rescue</string>
+    <string name="europe_112">112 · Europe Emergency</string>
+    <string name="sms_114">114 · Emergency SMS</string>
+    <string name="shortcut_cardiac">Cardiac arrest</string>
+    <string name="shortcut_choking">Choking</string>
+    <string name="shortcut_bleeding">Severe bleeding</string>
+    <string name="shortcut_recovery">Recovery position, burns</string>
+    <string name="widget_call">Call 112</string>
+    <string name="widget_call_number">112</string>
+    <string name="widget_description">Life-saving steps and emergency call in one tap.</string>
+    <string name="review_channel">Skills refresher</string>
+    <string name="review_title">Two minutes to practise?</string>
+    <string name="review_text">First aid skills fade without practice. Run through the chest compression rhythm on a cushion.</string>
 </resources>

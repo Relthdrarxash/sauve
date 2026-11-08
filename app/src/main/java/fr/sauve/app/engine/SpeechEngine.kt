@@ -1,5 +1,6 @@
 package fr.sauve.app.engine
 
+import fr.sauve.app.i18n.isFrench
 import android.content.Context
 import android.media.AudioAttributes
 import android.os.Build
@@ -15,12 +16,14 @@ class SpeechEngine(context: Context) : TextToSpeech.OnInitListener {
 
     private var tts: TextToSpeech? = TextToSpeech(context.applicationContext, this)
     private var isInitialized: Boolean = false
+    private val voiceLocale: Locale = if (isFrench()) Locale.FRENCH else Locale.ENGLISH
 
     var isVoiceEnabled: Boolean = true
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = tts?.setLanguage(Locale.FRENCH)
+            // La voix suit la langue de l'interface : français, ou anglais pour tous les autres.
+            val result = tts?.setLanguage(voiceLocale)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 tts?.language = Locale.getDefault()
             }
@@ -50,7 +53,7 @@ class SpeechEngine(context: Context) : TextToSpeech.OnInitListener {
         try {
             val voices = tts?.voices ?: return
             val frenchVoices = voices.filter { voice ->
-                voice.locale.language == Locale.FRENCH.language && !voice.isNetworkConnectionRequired
+                voice.locale.language == voiceLocale.language && !voice.isNetworkConnectionRequired
             }
             if (frenchVoices.isNotEmpty()) {
                 val bestVoice = frenchVoices.maxWithOrNull(

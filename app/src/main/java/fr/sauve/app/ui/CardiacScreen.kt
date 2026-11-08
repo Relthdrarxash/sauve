@@ -1,5 +1,6 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.tr
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -47,6 +48,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -77,16 +79,18 @@ fun CardiacScreen(
     speechEngine: SpeechEngine,
     onBack: () -> Unit,
     onNavigateToPls: () -> Unit,
+    /** Mode entraînement : directement au massage, sans appel ni étapes de bilan. */
+    training: Boolean = false,
 ) {
     val context = LocalContext.current
-    var step by remember { mutableStateOf(CardiacStep.CHECK_CONSCIOUSNESS) }
-    var profile by remember { mutableStateOf(VictimProfile.ADULT) }
-    var isContinuousMode by remember { mutableStateOf(true) } // Continu par défaut (recommandé grand public)
+    var step by rememberSaveable { mutableStateOf(if (training) CardiacStep.CPR_ACTIVE else CardiacStep.CHECK_CONSCIOUSNESS) }
+    var profile by rememberSaveable { mutableStateOf(VictimProfile.ADULT) }
+    var isContinuousMode by rememberSaveable { mutableStateOf(true) } // Continu par défaut (recommandé grand public)
     var showDaeDialog by remember { mutableStateOf(false) }
 
-    var compressionCount by remember { mutableIntStateOf(0) }
+    var compressionCount by rememberSaveable { mutableIntStateOf(0) }
     var isBreathingPhase by remember { mutableStateOf(false) }
-    var elapsedSeconds by remember { mutableLongStateOf(0L) }
+    var elapsedSeconds by rememberSaveable { mutableLongStateOf(0L) }
     var isRunning by remember { mutableStateOf(false) }
 
     // Arrêt du métronome quand on quitte l'écran
@@ -105,7 +109,7 @@ fun CardiacScreen(
             isRunning = false
         } else {
             isRunning = true
-            speechEngine.speak("Massez au centre de la poitrine au rythme des vibrations")
+            speechEngine.speak(tr("Massez au centre de la poitrine au rythme des vibrations", "Push in the centre of the chest in time with the vibrations"))
             metronome.start(
                 bpm = 110,
                 cycleLength = 30,
@@ -117,16 +121,16 @@ fun CardiacScreen(
 
                 // Voix de guidage
                 if (breath) {
-                    speechEngine.speak("2 insufflations !")
+                    speechEngine.speak(tr("2 insufflations !", "2 rescue breaths!"))
                 } else if (!isContinuousMode && count % 30 == 1) {
-                    speechEngine.speak("Reprenez le massage")
+                    speechEngine.speak(tr("Reprenez le massage", "Resume compressions"))
                 } else if (count % 10 == 0 && count % 30 != 0) {
                     speechEngine.speak("$count")
                 }
 
                 // Alerte de relais toutes les 2 minutes (120 secondes)
                 if (totalSeconds > 0 && totalSeconds % 120L == 0L) {
-                    speechEngine.speak("Deux minutes écoulées : relayez-vous si vous êtes deux !")
+                    speechEngine.speak(tr("Deux minutes écoulées : relayez-vous si vous êtes deux !", "Two minutes gone: swap over if there are two of you!"))
                 }
             }
         }
@@ -151,7 +155,7 @@ fun CardiacScreen(
                 speechEngine.stop()
                 onBack()
             }) {
-                Text("← Accueil", color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
+                Text(tr("← Accueil", "← Home"), color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
             }
 
             // Boutons profil
@@ -172,41 +176,57 @@ fun CardiacScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        if (training) {
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(
+                    tr("Entraînement : massez un coussin ou un ballon au rythme des vibrations. Visez 5 à 6 cm d'enfoncement, bras tendus. En cas de vraie urgence, revenez à l'accueil.", "Practice: compress a cushion or a ball in time with the vibrations. Aim for 5 to 6 cm deep, arms straight. In a real emergency, go back to the home screen."),
+                    modifier = Modifier.padding(12.dp),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+
         when (step) {
             CardiacStep.CHECK_CONSCIOUSNESS -> {
                 LaunchedEffect(Unit) {
-                    speechEngine.speak("Secouez doucement les épaules. Demandez : m'entendez-vous ?")
+                    speechEngine.speak(tr("Secouez doucement les épaules. Demandez : m'entendez-vous ?", "Gently shake the shoulders. Ask: can you hear me?"))
                 }
                 EmergencyStepCard(
-                    title = "1. Conscience de la victime",
-                    instruction = "Secouez doucement les épaules et demandez fort : « M'entendez-vous ? Serrez-moi la main ! »",
-                    primaryActionLabel = "Ne réagit pas (Inconscient)",
+                    title = tr("1. Conscience de la victime", "1. Is the person responsive?"),
+                    instruction = tr("Secouez doucement les épaules et demandez fort : « M'entendez-vous ? Serrez-moi la main ! »", "Gently shake the shoulders and ask loudly: “Can you hear me? Squeeze my hand!”"),
+                    primaryActionLabel = tr("Ne réagit pas (Inconscient)", "No response (unconscious)"),
                     primaryActionColor = EmergencyRed,
                     onPrimaryAction = { step = CardiacStep.CHECK_BREATHING },
-                    secondaryActionLabel = "Réagit / Parle",
+                    secondaryActionLabel = tr("Réagit / Parle", "Responds / talks"),
                     onSecondaryAction = { onNavigateToPls() },
                 )
             }
 
             CardiacStep.CHECK_BREATHING -> {
                 LaunchedEffect(Unit) {
-                    speechEngine.speak("Basculez prudemment la tête en arrière. Regardez si la poitrine se soulève pendant dix secondes.")
+                    speechEngine.speak(tr("Basculez prudemment la tête en arrière. Regardez si la poitrine se soulève pendant dix secondes.", "Gently tilt the head back. Look whether the chest rises for ten seconds."))
                 }
                 EmergencyStepCard(
-                    title = "2. Respiration (10 secondes max)",
-                    instruction = "Basculez prudemment la tête en arrière pour ouvrir les voies respiratoires. Regardez et écoutez : la poitrine se soulève-t-elle normalement ?",
-                    hint = "Attention : un râle bruyant ou gasps n'est PAS une respiration normale.",
-                    primaryActionLabel = "Ne respire pas / Respiration anormale",
+                    title = tr("2. Respiration (10 secondes max)", "2. Breathing (10 seconds max)"),
+                    instruction = tr("Basculez prudemment la tête en arrière pour ouvrir les voies respiratoires. Regardez et écoutez : la poitrine se soulève-t-elle normalement ?", "Gently tilt the head back to open the airway. Look and listen: does the chest rise normally?"),
+                    hint = tr("Attention : un râle bruyant ou gasps n'est PAS une respiration normale.", "Warning: noisy gasping is NOT normal breathing."),
+                    primaryActionLabel = tr("Ne respire pas / Respiration anormale", "Not breathing / abnormal breathing"),
                     primaryActionColor = EmergencyRed,
                     onPrimaryAction = { step = CardiacStep.CALL_ALERT },
-                    secondaryActionLabel = "Respire normalement",
+                    secondaryActionLabel = tr("Respire normalement", "Breathing normally"),
                     onSecondaryAction = { onNavigateToPls() },
                 )
             }
 
             CardiacStep.CALL_ALERT -> {
                 LaunchedEffect(Unit) {
-                    speechEngine.speak("Alertez immédiatement les secours. Demandez un défibrillateur !")
+                    speechEngine.speak(tr("Alertez immédiatement les secours. Demandez un défibrillateur !", "Call emergency services now. Ask for a defibrillator!"))
                 }
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -218,21 +238,21 @@ fun CardiacScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text(
-                            "Alerte Urgente",
+                            tr("Alerte Urgente", "Emergency call"),
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = EmergencyRed,
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            "Appelez le 15 ou le 112 en haut-parleur sans quitter la victime.",
+                            tr("Appelez le 15 ou le 112 en haut-parleur sans quitter la victime.", "Call 15 or 112 on speaker without leaving the person."),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.onSurface,
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            "Précisez immédiatement :\n• Arrêt cardiaque\n• Votre adresse exacte\n• Envoyez un témoin chercher un DAE (défibrillateur)",
+                            tr("Précisez immédiatement :\n• Arrêt cardiaque\n• Votre adresse exacte\n• Envoyez un témoin chercher un DAE (défibrillateur)", "Tell them straight away:\n• Cardiac arrest\n• Your exact address\n• Send a bystander to fetch an AED (defibrillator)"),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Start,
@@ -253,7 +273,7 @@ fun CardiacScreen(
                                 .height(56.dp),
                             shape = RoundedCornerShape(12.dp),
                         ) {
-                            Text("Appeler le 15 (SAMU)", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                            Text(tr("Appeler le 15 (SAMU)", "Call 15 (Medical)"), fontSize = 18.sp, fontWeight = FontWeight.Bold)
                         }
                         Spacer(modifier = Modifier.height(12.dp))
                         OutlinedButton(
@@ -266,7 +286,7 @@ fun CardiacScreen(
                                 .height(56.dp),
                             shape = RoundedCornerShape(12.dp),
                         ) {
-                            Text("Démarrer le massage cardiaque →", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                            Text(tr("Démarrer le massage cardiaque →", "Start chest compressions →"), fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                         }
                     }
                 }
@@ -340,13 +360,13 @@ private fun CprActiveScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = if (isBreathingPhase) "INSUFFLATIONS" else "110 BPM",
+                    text = if (isBreathingPhase) tr("INSUFFLATIONS", "RESCUE BREATHS") else "110 BPM",
                     fontWeight = FontWeight.Bold,
                     color = if (isBreathingPhase) EmergencyOrange else EmergencyRed,
                     fontSize = 18.sp,
                 )
                 Text(
-                    text = "Durée : $timerStr",
+                    text = tr("Durée : $timerStr", "Time: $timerStr"),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
@@ -370,7 +390,7 @@ private fun CprActiveScreen(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     if (isBreathingPhase) {
                         Text("2", fontSize = 48.sp, fontWeight = FontWeight.Black, color = Color.White)
-                        Text("Insufflations", fontSize = 14.sp, color = Color.White, fontWeight = FontWeight.SemiBold)
+                        Text(tr("Insufflations", "Rescue breaths"), fontSize = 14.sp, color = Color.White, fontWeight = FontWeight.SemiBold)
                     } else {
                         Text(
                             text = if (isContinuousMode) compressionCount.toString() else "${(compressionCount - 1) % 30 + 1}",
@@ -380,7 +400,7 @@ private fun CprActiveScreen(
                             lineHeight = 64.sp,
                         )
                         Text(
-                            text = if (!isContinuousMode) "sur 30" else "compressions",
+                            text = if (!isContinuousMode) tr("sur 30", "of 30") else tr("compressions", "compressions"),
                             fontSize = 13.sp,
                             color = if (isRunning) Color.White.copy(alpha = 0.9f) else MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -392,9 +412,9 @@ private fun CprActiveScreen(
 
             // Consignes de posture selon le profil
             val postureText = when (profile) {
-                VictimProfile.ADULT -> "Bras tendus verticaux • Enfoncer de 5 à 6 cm • Relâcher complètement"
-                VictimProfile.CHILD -> "1 seule main au centre • Enfoncer de 4 à 5 cm • Relâcher"
-                VictimProfile.INFANT -> "2 doigts au centre • Enfoncer de 3 à 4 cm • Rythme doux"
+                VictimProfile.ADULT -> tr("Bras tendus verticaux • Enfoncer de 5 à 6 cm • Relâcher complètement", "Arms straight and vertical • Push 5 to 6 cm • Release fully")
+                VictimProfile.CHILD -> tr("1 seule main au centre • Enfoncer de 4 à 5 cm • Relâcher", "One hand in the centre • Push 4 to 5 cm • Release")
+                VictimProfile.INFANT -> tr("2 doigts au centre • Enfoncer de 3 à 4 cm • Rythme doux", "Two fingers in the centre • Push 3 to 4 cm • Gentle rhythm")
             }
             Text(
                 postureText,
@@ -420,7 +440,7 @@ private fun CprActiveScreen(
                 border = if (isRunning) BorderStroke(2.dp, EmergencyRed) else null,
             ) {
                 Text(
-                    text = if (isRunning) "Mettre en pause" else "Lancer le métronome (110 bpm)",
+                    text = if (isRunning) tr("Mettre en pause", "Pause") else tr("Lancer le métronome (110 bpm)", "Start the metronome (110 bpm)"),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -440,7 +460,7 @@ private fun CprActiveScreen(
                         .height(48.dp),
                     shape = RoundedCornerShape(12.dp),
                 ) {
-                    Text("DAE disponible", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EmergencyGreen)
+                    Text(tr("DAE disponible", "AED available"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EmergencyGreen)
                 }
                 OutlinedButton(
                     onClick = onToggleMode,
@@ -450,7 +470,7 @@ private fun CprActiveScreen(
                     shape = RoundedCornerShape(12.dp),
                 ) {
                     Text(
-                        if (isContinuousMode) "Mode : Continu" else "Mode : 30 : 2",
+                        if (isContinuousMode) tr("Mode : Continu", "Mode: continuous") else tr("Mode : 30 : 2", "Mode: 30:2"),
                         fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold,
                     )
@@ -528,19 +548,19 @@ private fun DaeGuideDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text("Consignes Défibrillateur (DAE)", fontWeight = FontWeight.Bold, color = EmergencyGreen)
+            Text(tr("Consignes Défibrillateur (DAE)", "Defibrillator (AED) instructions"), fontWeight = FontWeight.Bold, color = EmergencyGreen)
         },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("1. Allumez immédiatement l'appareil (bouton vert ou ouverture du capot).")
-                Text("2. Écoutez ses consignes vocales : collez les électrodes sur la poitrine nue sèche selon les dessins.")
-                Text("3. Pendant l'analyse et la délivrance du choc : NE TOUCHEZ PAS la victime.")
-                Text("4. Reprenez le massage cardiaque immédiatement après le choc si le DAE le demande.")
+                Text(tr("1. Allumez immédiatement l'appareil (bouton vert ou ouverture du capot).", "1. Switch the device on at once (green button or open the lid)."))
+                Text(tr("2. Écoutez ses consignes vocales : collez les électrodes sur la poitrine nue sèche selon les dessins.", "2. Follow its voice prompts: stick the pads on the bare, dry chest as shown in the pictures."))
+                Text(tr("3. Pendant l'analyse et la délivrance du choc : NE TOUCHEZ PAS la victime.", "3. During analysis and shock: DO NOT TOUCH the person."))
+                Text(tr("4. Reprenez le massage cardiaque immédiatement après le choc si le DAE le demande.", "4. Resume chest compressions right after the shock if the AED tells you to."))
             }
         },
         confirmButton = {
             Button(onClick = onDismiss, colors = ButtonDefaults.buttonColors(containerColor = EmergencyGreen)) {
-                Text("J'ai compris")
+                Text(tr("J'ai compris", "Got it"))
             }
         },
     )

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Raccourcis statiques (appui long sur l'icône) : un geste vital en un tap. -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="cardiac"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_cardiac">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="fr.sauve.app"
+            android:targetClass="fr.sauve.app.MainActivity">
+            <extra android:name="fr.sauve.SCREEN" android:value="CARDIAC" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="choking"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_choking">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="fr.sauve.app"
+            android:targetClass="fr.sauve.app.MainActivity">
+            <extra android:name="fr.sauve.SCREEN" android:value="CHOKING" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="bleeding"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_bleeding">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="fr.sauve.app"
+            android:targetClass="fr.sauve.app.MainActivity">
+            <extra android:name="fr.sauve.SCREEN" android:value="BLEEDING" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="recovery"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_recovery">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="fr.sauve.app"
+            android:targetClass="fr.sauve.app.MainActivity">
+            <extra android:name="fr.sauve.SCREEN" android:value="RECOVERY" />
+        </intent>
+    </shortcut>
+</shortcuts>

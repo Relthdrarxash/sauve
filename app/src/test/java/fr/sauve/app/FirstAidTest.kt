@@ -6,9 +6,20 @@ import fr.sauve.app.data.VictimProfile
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
+import org.junit.BeforeClass
 import org.junit.Test
+import java.util.Locale
 
 class FirstAidTest {
+
+    companion object {
+        /** Les contenus vérifiés ici sont les textes français : la JVM de test peut être en anglais. */
+        @JvmStatic
+        @BeforeClass
+        fun frenchLocale() {
+            Locale.setDefault(Locale.FRENCH)
+        }
+    }
 
     @Test
     fun metronomeIntervalCalculations() {

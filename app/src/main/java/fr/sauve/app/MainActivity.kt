@@ -1,14 +1,17 @@
 package fr.sauve.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import fr.sauve.app.data.EmergencyCategory
 import fr.sauve.app.engine.HapticMetronome
@@ -30,12 +33,27 @@ enum class Screen {
     RECOVERY,
     GUIDE,
     ABOUT,
+
+    /** Massage cardiaque à blanc, sur un coussin : réviser le rythme sans urgence. */
+    TRAINING,
+    ;
+
+    companion object {
+        /** Extra des raccourcis d'appli, du widget et du rappel de révision. */
+        const val EXTRA = "fr.sauve.SCREEN"
+
+        fun from(intent: Intent?): Screen? =
+            intent?.getStringExtra(EXTRA)?.let { name -> entries.firstOrNull { it.name == name } }
+    }
 }
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var metronome: HapticMetronome
     private lateinit var speechEngine: SpeechEngine
+
+    /** Écran demandé par un raccourci ou le widget alors que l'appli est déjà ouverte. */
+    private var requestedScreen by mutableStateOf<Screen?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +63,21 @@ class MainActivity : ComponentActivity() {
 
         metronome = HapticMetronome(this)
         speechEngine = SpeechEngine(this)
+        val initialScreen = (if (savedInstanceState == null) Screen.from(intent) else null) ?: Screen.HOME
 
         setContent {
             SauveTheme(darkTheme = true) {
-                var currentScreen by remember { mutableStateOf(Screen.HOME) }
+                // Conservé si Android ferme l'appli pendant l'appel au 15 : on revient au même geste.
+                var currentScreen by rememberSaveable { mutableStateOf(initialScreen) }
+
+                LaunchedEffect(requestedScreen) {
+                    requestedScreen?.let {
+                        metronome.stop()
+                        speechEngine.stop()
+                        currentScreen = it
+                        requestedScreen = null
+                    }
+                }
 
                 BackHandler(enabled = currentScreen != Screen.HOME) {
                     metronome.stop()
@@ -67,6 +96,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         onOpenGuide = { currentScreen = Screen.GUIDE },
+                        onOpenTraining = { currentScreen = Screen.TRAINING },
                         onOpenAbout = { currentScreen = Screen.ABOUT },
                     )
 
@@ -75,6 +105,14 @@ class MainActivity : ComponentActivity() {
                         speechEngine = speechEngine,
                         onBack = { currentScreen = Screen.HOME },
                         onNavigateToPls = { currentScreen = Screen.RECOVERY },
+                    )
+
+                    Screen.TRAINING -> CardiacScreen(
+                        metronome = metronome,
+                        speechEngine = speechEngine,
+                        onBack = { currentScreen = Screen.HOME },
+                        onNavigateToPls = { currentScreen = Screen.RECOVERY },
+                        training = true,
                     )
 
                     Screen.CHOKING -> ChokingScreen(
@@ -105,6 +143,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        Screen.from(intent)?.let { requestedScreen = it }
     }
 
     override fun onDestroy() {

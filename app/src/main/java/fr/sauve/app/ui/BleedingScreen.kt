@@ -1,5 +1,6 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.tr
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -32,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,13 +59,13 @@ fun BleedingScreen(
 ) {
     val context = LocalContext.current
     var isTimerActive by remember { mutableStateOf(true) }
-    var compressionSeconds by remember { mutableLongStateOf(0L) }
+    var compressionSeconds by rememberSaveable { mutableLongStateOf(0L) }
     var showForeignBodyDialog by remember { mutableStateOf(false) }
     var showTourniquetDialog by remember { mutableStateOf(false) }
-    var tourniquetTime by remember { mutableStateOf<String?>(null) }
+    var tourniquetTime by rememberSaveable { mutableStateOf<String?>(null) }
 
     LaunchedEffect(isTimerActive) {
-        speechEngine.speak("Appuyez immédiatement très fort sur la plaie avec la paume. Ne relâchez jamais.")
+        speechEngine.speak(tr("Appuyez immédiatement très fort sur la plaie avec la paume. Ne relâchez jamais.", "Press very hard on the wound with your palm right now. Never let go."))
         while (isTimerActive) {
             delay(1000L)
             compressionSeconds++
@@ -97,9 +99,9 @@ fun BleedingScreen(
                 speechEngine.stop()
                 onBack()
             }) {
-                Text("← Accueil", color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
+                Text(tr("← Accueil", "← Home"), color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
             }
-            Text("Hémorragie grave", color = EmergencyCrimson, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text(tr("Hémorragie grave", "Severe bleeding"), color = EmergencyCrimson, fontWeight = FontWeight.Bold, fontSize = 16.sp)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -115,21 +117,21 @@ fun BleedingScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    "COMPRESSION DIRECTE",
+                    tr("COMPRESSION DIRECTE", "DIRECT PRESSURE"),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Black,
                     color = EmergencyCrimson,
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    "Appuyez très fort avec la paume de la main ou un tissu propre directement sur la plaie.",
+                    tr("Appuyez très fort avec la paume de la main ou un tissu propre directement sur la plaie.", "Press very hard with the palm of your hand or a clean cloth directly on the wound."),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.SemiBold,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    "Important : Ne relâchez jamais la pression, même pour regarder si le saignement a diminué.",
+                    tr("Important : Ne relâchez jamais la pression, même pour regarder si le saignement a diminué.", "Important: never release the pressure, not even to see whether the bleeding has slowed."),
                     style = MaterialTheme.typography.bodyMedium,
                     color = EmergencyOrange,
                     textAlign = TextAlign.Center,
@@ -140,7 +142,7 @@ fun BleedingScreen(
 
                 // Chronomètre de compression
                 Text(
-                    "Temps de maintien :",
+                    tr("Temps de maintien :", "Time held:"),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -154,7 +156,7 @@ fun BleedingScreen(
                 tourniquetTime?.let { time ->
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        "Garrot posé à : $time",
+                        tr("Garrot posé à : $time", "Tourniquet applied at: $time"),
                         fontWeight = FontWeight.Bold,
                         color = EmergencyOrange,
                         fontSize = 15.sp,
@@ -175,7 +177,7 @@ fun BleedingScreen(
                         .fillMaxWidth()
                         .height(58.dp),
                 ) {
-                    Text("Appeler le 15 (SAMU en haut-parleur)", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    Text(tr("Appeler le 15 (SAMU en haut-parleur)", "Call 15 (Medical, on speaker)"), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -188,9 +190,9 @@ fun BleedingScreen(
                         .padding(14.dp),
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
-                    Text("1. Allongez la victime pour éviter le malaise de choc.", style = MaterialTheme.typography.bodyMedium)
-                    Text("2. Couvrez-la pour prévenir l'hypothermie.", style = MaterialTheme.typography.bodyMedium)
-                    Text("3. Ne lui donnez RIEN à boire ni à manger.", style = MaterialTheme.typography.bodyMedium)
+                    Text(tr("1. Allongez la victime pour éviter le malaise de choc.", "1. Lay the person down to prevent fainting from shock."), style = MaterialTheme.typography.bodyMedium)
+                    Text(tr("2. Couvrez-la pour prévenir l'hypothermie.", "2. Cover them to prevent hypothermia."), style = MaterialTheme.typography.bodyMedium)
+                    Text(tr("3. Ne lui donnez RIEN à boire ni à manger.", "3. Give them NOTHING to eat or drink."), style = MaterialTheme.typography.bodyMedium)
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -207,7 +209,7 @@ fun BleedingScreen(
                             .height(48.dp),
                         shape = RoundedCornerShape(10.dp),
                     ) {
-                        Text("Objet planté", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(tr("Objet planté", "Object in wound"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                     }
                     OutlinedButton(
                         onClick = { showTourniquetDialog = true },
@@ -216,7 +218,7 @@ fun BleedingScreen(
                             .height(48.dp),
                         shape = RoundedCornerShape(10.dp),
                     ) {
-                        Text("Poser un garrot", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(tr("Poser un garrot", "Apply a tourniquet"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
@@ -225,17 +227,17 @@ fun BleedingScreen(
         if (showForeignBodyDialog) {
             AlertDialog(
                 onDismissRequest = { showForeignBodyDialog = false },
-                title = { Text("Corps étranger dans la plaie", fontWeight = FontWeight.Bold, color = EmergencyOrange) },
+                title = { Text(tr("Corps étranger dans la plaie", "Object stuck in the wound"), fontWeight = FontWeight.Bold, color = EmergencyOrange) },
                 text = {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("• NE RETIREZ JAMAIS l'objet (couteau, éclat de verre, morceau de métal). Il fait actuellement office de bouchon hémostatique.")
-                        Text("• Comprimez fermement avec vos mains de part et d'autre de l'objet sans appuyer dessus.")
-                        Text("• Alertez le 15 immédiatement.")
+                        Text(tr("• NE RETIREZ JAMAIS l'objet (couteau, éclat de verre, morceau de métal). Il fait actuellement office de bouchon hémostatique.", "• NEVER REMOVE the object (knife, glass, metal). It is currently plugging the wound."))
+                        Text(tr("• Comprimez fermement avec vos mains de part et d'autre de l'objet sans appuyer dessus.", "• Press firmly with your hands on both sides of the object without pressing on it."))
+                        Text(tr("• Alertez le 15 immédiatement.", "• Call 15 immediately."))
                     }
                 },
                 confirmButton = {
                     Button(onClick = { showForeignBodyDialog = false }) {
-                        Text("Bien compris")
+                        Text(tr("Bien compris", "Understood"))
                     }
                 },
             )
@@ -244,14 +246,14 @@ fun BleedingScreen(
         if (showTourniquetDialog) {
             AlertDialog(
                 onDismissRequest = { showTourniquetDialog = false },
-                title = { Text("Poser un garrot d'urgence", fontWeight = FontWeight.Bold, color = EmergencyCrimson) },
+                title = { Text(tr("Poser un garrot d'urgence", "Emergency tourniquet"), fontWeight = FontWeight.Bold, color = EmergencyCrimson) },
                 text = {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("Le garrot est réservé aux cas extrêmes (membre arraché, blessés multiples impossibles à comprimer manuellement).")
-                        Text("1. Placer un lien large (ceinture, écharpe) au-dessus de la plaie, entre la blessure et le cœur.")
-                        Text("2. Serrer très fort jusqu'à arrêt complet du saignement.")
-                        Text("3. NE JAMAIS LE DESSERRER.")
-                        Text("4. Noter impérativement l'heure de pose.")
+                        Text(tr("Le garrot est réservé aux cas extrêmes (membre arraché, blessés multiples impossibles à comprimer manuellement).", "A tourniquet is only for extreme cases (severed limb, several casualties that cannot be compressed by hand)."))
+                        Text(tr("1. Placer un lien large (ceinture, écharpe) au-dessus de la plaie, entre la blessure et le cœur.", "1. Place a wide strap (belt, scarf) above the wound, between the injury and the heart."))
+                        Text(tr("2. Serrer très fort jusqu'à arrêt complet du saignement.", "2. Tighten very hard until the bleeding stops completely."))
+                        Text(tr("3. NE JAMAIS LE DESSERRER.", "3. NEVER LOOSEN IT."))
+                        Text(tr("4. Noter impérativement l'heure de pose.", "4. Always note the time it was applied."))
                     }
                 },
                 confirmButton = {
@@ -259,17 +261,17 @@ fun BleedingScreen(
                         onClick = {
                             val now = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
                             tourniquetTime = now
-                            speechEngine.speak("Garrot noté à $now. Ne le desserrez sous aucun prétexte.")
+                            speechEngine.speak(tr("Garrot noté à $now. Ne le desserrez sous aucun prétexte.", "Tourniquet noted at $now. Do not loosen it under any circumstances."))
                             showTourniquetDialog = false
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = EmergencyCrimson),
                     ) {
-                        Text("Enregistrer l'heure actuelle")
+                        Text(tr("Enregistrer l'heure actuelle", "Save the current time"))
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { showTourniquetDialog = false }) {
-                        Text("Annuler")
+                        Text(tr("Annuler", "Cancel"))
                     }
                 },
             )

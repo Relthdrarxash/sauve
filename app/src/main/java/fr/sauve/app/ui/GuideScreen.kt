@@ -1,5 +1,6 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.tr
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +40,7 @@ import fr.sauve.app.ui.theme.EmergencyRed
 fun GuideScreen(
     onBack: () -> Unit,
 ) {
-    var expandedTopicId by remember { mutableStateOf<String?>(null) }
+    var expandedTopicId by rememberSaveable { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -53,20 +55,20 @@ fun GuideScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             TextButton(onClick = onBack) {
-                Text("← Accueil", color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
+                Text(tr("← Accueil", "← Home"), color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
             }
-            Text("Guide Réflexes PSC1", fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 16.sp)
+            Text(tr("Guide Réflexes PSC1", "First aid reflexes guide"), fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 16.sp)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            "Fiches pratiques de révision",
+            tr("Fiches pratiques de révision", "Practical refresher sheets"),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
         )
         Text(
-            "Consultez ces guides à tête reposée pour mémoriser les réflexes vitaux.",
+            tr("Consultez ces guides à tête reposée pour mémoriser les réflexes vitaux.", "Read these guides calmly, ahead of time, to memorise the life-saving reflexes."),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -124,7 +126,7 @@ fun GuideScreen(
                     AnimatedVisibility(visible = isExpanded) {
                         Column(modifier = Modifier.padding(top = 16.dp)) {
                             Text(
-                                "Gestes clés :",
+                                tr("Gestes clés :", "Key steps:"),
                                 fontWeight = FontWeight.Bold,
                                 color = EmergencyGreen,
                                 style = MaterialTheme.typography.titleSmall,
@@ -136,7 +138,7 @@ fun GuideScreen(
 
                             Spacer(modifier = Modifier.height(12.dp))
                             Text(
-                                "Erreurs à éviter :",
+                                tr("Erreurs à éviter :", "Mistakes to avoid:"),
                                 fontWeight = FontWeight.Bold,
                                 color = EmergencyRed,
                                 style = MaterialTheme.typography.titleSmall,

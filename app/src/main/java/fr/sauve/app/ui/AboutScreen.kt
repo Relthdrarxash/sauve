@@ -1,5 +1,6 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.tr
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -65,9 +66,9 @@ fun AboutScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             TextButton(onClick = onBack) {
-                Text("← Accueil", color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
+                Text(tr("← Accueil", "← Home"), color = MaterialTheme.colorScheme.onBackground, fontSize = 16.sp)
             }
-            Text("À propos", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, fontSize = 16.sp)
+            Text(tr("À propos", "About"), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, fontSize = 16.sp)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -88,13 +89,13 @@ fun AboutScreen(
                     color = EmergencyRed,
                 )
                 Text(
-                    "Premiers secours anti-panique • Version 1.0.0",
+                    tr("Premiers secours anti-panique • Version 1.0.0", "Anti-panic first aid • Version 1.0.0"),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    "Conçue pour guider les gestes de secours sans panique ni hésitation. Fonctionne 100 % hors-ligne, sans inscription, sans publicité, et ne collecte strictement aucune donnée personnelle.",
+                    tr("Conçue pour guider les gestes de secours sans panique ni hésitation. Fonctionne 100 % hors-ligne, sans inscription, sans publicité, et ne collecte strictement aucune donnée personnelle.", "Designed to guide first aid without panic or hesitation. Works 100% offline, with no sign-up and no ads, and collects no personal data at all."),
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
                 )
@@ -107,10 +108,10 @@ fun AboutScreen(
                         .padding(14.dp),
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
-                    Text("• Aucune permission INTERNET (étanchéité absolue)", fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 13.sp)
-                    Text("• Démarrage immédiat sans compte ni écran de veille", fontSize = 13.sp)
-                    Text("• Métronome haptique haute précision à 110 bpm", fontSize = 13.sp)
-                    Text("• Synthèse vocale pas-à-pas mains-libres", fontSize = 13.sp)
+                    Text(tr("• Aucune permission INTERNET (étanchéité absolue)", "• No INTERNET permission (fully sealed)"), fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 13.sp)
+                    Text(tr("• Démarrage immédiat sans compte ni écran de veille", "• Starts instantly, no account, no splash screen"), fontSize = 13.sp)
+                    Text(tr("• Métronome haptique haute précision à 110 bpm", "• High-precision haptic metronome at 110 bpm"), fontSize = 13.sp)
+                    Text(tr("• Synthèse vocale pas-à-pas mains-libres", "• Hands-free, step-by-step voice guidance"), fontSize = 13.sp)
                 }
             }
         }
@@ -119,12 +120,12 @@ fun AboutScreen(
 
         // Suite Pilmil Studio
         Text(
-            "La suite Pilmil Studio",
+            tr("La suite Pilmil Studio", "The Pilmil Studio suite"),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
         )
         Text(
-            "Des biens communs numériques éthiques, libres et respectueux.",
+            tr("Des biens communs numériques éthiques, libres et respectueux.", "Ethical, free and respectful digital commons."),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -133,21 +134,21 @@ fun AboutScreen(
 
         CompanionAppCard(
             title = "Respire",
-            description = "Déconnexion sereine & micro-pauses sans tracking",
+            description = tr("Déconnexion sereine & micro-pauses sans tracking", "Calm disconnection & micro-breaks, no tracking"),
             pkg = "fr.respire.app",
             onOpen = { openPlayStore("fr.respire.app") },
         )
 
         CompanionAppCard(
             title = "Lunaison",
-            description = "Suivi de cycle intime 100 % confidentiel & hors-ligne",
+            description = tr("Suivi de cycle intime 100 % confidentiel & hors-ligne", "100% private, offline cycle tracking"),
             pkg = "fr.lunaison",
             onOpen = { openPlayStore("fr.lunaison") },
         )
 
         CompanionAppCard(
             title = "Sommelle",
-            description = "Journal du sommeil sans pub ni compte",
+            description = tr("Journal du sommeil sans pub ni compte", "Sleep diary with no ads or account"),
             pkg = "fr.sommelle",
             onOpen = { openPlayStore("fr.sommelle") },
         )
@@ -183,7 +184,7 @@ private fun CompanionAppCard(
                 onClick = onOpen,
                 shape = RoundedCornerShape(8.dp),
             ) {
-                Text("Voir", fontSize = 12.sp)
+                Text(tr("Voir", "View"), fontSize = 12.sp)
             }
         }
     }
