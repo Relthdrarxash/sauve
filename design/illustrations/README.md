@@ -12,6 +12,7 @@ Pictogrammes médicaux sobres, affichés au-dessus des consignes dans l'appli (m
 | `choking_back_blows.svg` | Claques dans le dos (adulte, enfant) |
 | `choking_heimlich.svg` | Compressions abdominales (Heimlich) |
 | `choking_infant.svg` | Tapes dans le dos du nourrisson sur l'avant-bras |
+| `choking_infant_chest.svg` | Compressions thoraciques du nourrisson sur le dos, deux doigts |
 | `bleeding_pressure.svg` | Compression directe d'une hémorragie |
 | `recovery_position.svg` | PLS en 4 vignettes (viewBox 640x200) |
 

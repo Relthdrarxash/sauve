@@ -17,6 +17,7 @@ import fr.sauve.app.resources.bleeding_pressure
 import fr.sauve.app.resources.choking_back_blows
 import fr.sauve.app.resources.choking_heimlich
 import fr.sauve.app.resources.choking_infant
+import fr.sauve.app.resources.choking_infant_chest
 import fr.sauve.app.resources.cpr_adult
 import fr.sauve.app.resources.cpr_child
 import fr.sauve.app.resources.cpr_infant
@@ -32,6 +33,7 @@ object Gestures {
     val ChokingBackBlows: DrawableResource get() = Res.drawable.choking_back_blows
     val ChokingHeimlich: DrawableResource get() = Res.drawable.choking_heimlich
     val ChokingInfant: DrawableResource get() = Res.drawable.choking_infant
+    val ChokingInfantChest: DrawableResource get() = Res.drawable.choking_infant_chest
     val BleedingPressure: DrawableResource get() = Res.drawable.bleeding_pressure
     val RecoveryPosition: DrawableResource get() = Res.drawable.recovery_position
 }

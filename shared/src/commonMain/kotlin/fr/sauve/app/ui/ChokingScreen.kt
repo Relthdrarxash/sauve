@@ -350,7 +350,10 @@ fun ChokingScreen(
                             textAlign = TextAlign.Center,
                         )
                         Spacer(modifier = Modifier.height(12.dp))
-                        if (profile != VictimProfile.INFANT) {
+                        if (profile == VictimProfile.INFANT) {
+                            GestureIllustration(Gestures.ChokingInfantChest, tr("Schéma : nourrisson sur le dos le long de l'avant-bras du sauveteur, tête plus basse que le corps et soutenue, deux doigts au centre de la poitrine, flèche vers le bas.", "Diagram: baby on their back along the rescuer's forearm, head lower than the body and supported, two fingers in the centre of the chest, arrow pointing down."))
+                            Spacer(modifier = Modifier.height(8.dp))
+                        } else {
                             GestureIllustration(Gestures.ChokingHeimlich, tr("Schéma : sauveteur derrière la victime debout, poing entre le nombril et le bas du sternum, l'autre main par-dessus, flèche vers l'intérieur et vers le haut.", "Diagram: rescuer standing behind the person, fist between the navel and the lower breastbone, other hand on top, arrow pointing inwards and upwards."))
                             Spacer(modifier = Modifier.height(8.dp))
                         }
