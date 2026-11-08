@@ -3,6 +3,7 @@ package fr.sauve.app.i18n
 import platform.Foundation.NSDate
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSLocale
+import platform.Foundation.preferredLanguages
 
 /** Première langue préférée de l'iPhone (« fr-FR » donne « fr »). */
 actual fun systemLanguage(): String =

@@ -111,12 +111,14 @@ private class IosReviewReminder : ReviewReminderPort {
 
     private fun schedule() {
         val content = UNMutableNotificationContent()
-        content.title = tr("Deux minutes pour réviser ?", "Two minutes to practise?")
-        content.body = tr(
-            "Les gestes s'oublient sans pratique. Refaites le rythme du massage cardiaque sur un coussin.",
-            "First aid skills fade without practice. Run through the chest compression rhythm on a cushion.",
+        content.setTitle(tr("Deux minutes pour réviser ?", "Two minutes to practise?"))
+        content.setBody(
+            tr(
+                "Les gestes s'oublient sans pratique. Refaites le rythme du massage cardiaque sur un coussin.",
+                "First aid skills fade without practice. Run through the chest compression rhythm on a cushion.",
+            ),
         )
-        content.sound = UNNotificationSound.defaultSound
+        content.setSound(UNNotificationSound.defaultSound)
         val trigger = UNTimeIntervalNotificationTrigger.triggerWithTimeInterval(INTERVAL_DAYS * 24.0 * 3600.0, repeats = true)
         val request = UNNotificationRequest.requestWithIdentifier(IDENTIFIER, content, trigger)
         center.addNotificationRequest(request, withCompletionHandler = null)
