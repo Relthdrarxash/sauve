@@ -175,6 +175,13 @@ fun RecoveryScreen(
                         )
                         Spacer(modifier = Modifier.height(20.dp))
 
+                        GestureIllustration(
+                            Gestures.RecoveryPosition,
+                            tr("Schéma en 4 étapes : bras le plus proche à angle droit, dos de l'autre main contre la joue, genou opposé relevé pour faire rouler la victime vers soi, victime sur le côté la bouche vers le sol.", "Four-step diagram: nearest arm at a right angle, back of the other hand against the cheek, far knee raised to roll the person towards you, person on their side with the mouth facing the ground."),
+                            aspectRatio = 3.2f,
+                        )
+                        Spacer(modifier = Modifier.height(14.dp))
+
                         // Étapes claires
                         PlsStepItem(tr("1. Bras en angle droit", "1. Arm at a right angle"), tr("Placez le bras le plus proche de vous à angle droit (90°) paume vers le haut.", "Place the arm nearest to you at a right angle (90°), palm up."))
                         PlsStepItem(tr("2. Main contre la joue", "2. Hand against the cheek"), tr("Amenez le dos de l'autre main contre l'oreille et la joue opposée de la victime.", "Bring the back of the other hand against the person's opposite ear and cheek."))

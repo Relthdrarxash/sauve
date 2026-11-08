@@ -26,6 +26,7 @@ kotlin {
             api(compose.foundation)
             api(compose.material3)
             api(compose.ui)
+            implementation(compose.components.resources)
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
         }
         commonTest.dependencies {
@@ -38,6 +39,12 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
         }
     }
+}
+
+// Schémas des gestes (SVG convertis en Vector Drawable), voir design/illustrations/README.md
+compose.resources {
+    packageOfResClass = "fr.sauve.app.resources"
+    publicResClass = false
 }
 
 android {

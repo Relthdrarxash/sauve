@@ -1,0 +1,56 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="200dp"
+    android:viewportWidth="320"
+    android:viewportHeight="200">
+    <path
+        android:strokeColor="#FFECEFF1"
+        android:strokeWidth="50"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M30 148L296 148"/>
+    <path
+        android:strokeColor="#FF37474F"
+        android:strokeWidth="44"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M30 148L296 148"/>
+    <path
+        android:fillColor="#E6ECEFF1"
+        android:strokeColor="#FFECEFF1"
+        android:strokeWidth="3"
+        android:pathData="M108 107c0-3.87 3.13-7 7-7h90c3.87 0 7 3.13 7 7v12c0 3.87-3.13 7-7 7h-90c-3.87 0-7-3.13-7-7z"/>
+    <path
+        android:strokeColor="#FFECEFF1"
+        android:strokeWidth="30"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M212 80L296 42"/>
+    <path
+        android:strokeColor="#FF546E7A"
+        android:strokeWidth="24"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M212 80L296 42"/>
+    <path
+        android:fillColor="#FF546E7A"
+        android:strokeColor="#FFECEFF1"
+        android:strokeWidth="3"
+        android:pathData="M104 82c0-7.73 6.27-14 14-14h84c7.73 0 14 6.27 14 14v6c0 7.73-6.27 14-14 14h-84c-7.73 0-14-6.27-14-14z"/>
+    <path
+        android:strokeColor="#FFE53935"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:pathData="M122 104H198"/>
+    <path
+        android:strokeColor="#FFE53935"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:pathData="M160 10L160 47"/>
+    <path
+        android:fillColor="#FFE53935"
+        android:strokeColor="#FFE53935"
+        android:strokeWidth="2"
+        android:strokeLineJoin="round"
+        android:pathData="M160 60L152.2 47 167.8 47Z"/>
+</vector>

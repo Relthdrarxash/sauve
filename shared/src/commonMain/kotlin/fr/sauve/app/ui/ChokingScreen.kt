@@ -262,6 +262,12 @@ fun ChokingScreen(
                             color = EmergencyOrange,
                         )
                         Spacer(modifier = Modifier.height(12.dp))
+                        if (profile == VictimProfile.INFANT) {
+                            GestureIllustration(Gestures.ChokingInfant, tr("Schéma : nourrisson à plat ventre le long de l'avant-bras du sauveteur, tête plus basse que le corps, mâchoire soutenue par la main, tapes entre les omoplates.", "Diagram: baby face down along the rescuer's forearm, head lower than the body, jaw supported by the hand, back blows between the shoulder blades."))
+                        } else {
+                            GestureIllustration(Gestures.ChokingBackBlows, tr("Schéma : personne penchée en avant, soutenue au niveau de la poitrine par une main, l'autre main frappe entre les omoplates, flèche vers le bas.", "Diagram: person leaning forward, supported at the chest by one hand while the other hand strikes between the shoulder blades, arrow pointing down."))
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
                         val instruction = when (profile) {
                             VictimProfile.ADULT, VictimProfile.CHILD ->
                                 tr("Penchez la victime en avant. Donnez une claque sèche avec le plat de la main entre les deux omoplates.", "Lean the person forward. Give a sharp blow with the flat of your hand between the shoulder blades.")
@@ -344,6 +350,10 @@ fun ChokingScreen(
                             textAlign = TextAlign.Center,
                         )
                         Spacer(modifier = Modifier.height(12.dp))
+                        if (profile != VictimProfile.INFANT) {
+                            GestureIllustration(Gestures.ChokingHeimlich, tr("Schéma : sauveteur derrière la victime debout, poing entre le nombril et le bas du sternum, l'autre main par-dessus, flèche vers l'intérieur et vers le haut.", "Diagram: rescuer standing behind the person, fist between the navel and the lower breastbone, other hand on top, arrow pointing inwards and upwards."))
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
                         val instruction = when (profile) {
                             VictimProfile.ADULT, VictimProfile.CHILD ->
                                 tr("Placez votre poing au creux de l'estomac (au-dessus du nombril). Tirez d'un coup sec vers l'arrière et vers le haut.", "Place your fist just above the navel, below the ribs. Pull sharply inwards and upwards.")

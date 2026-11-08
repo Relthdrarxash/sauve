@@ -413,6 +413,13 @@ private fun CprActiveScreen(
                 VictimProfile.CHILD -> tr("1 seule main au centre • Enfoncer de 4 à 5 cm • Relâcher", "One hand in the centre • Push 4 to 5 cm • Release")
                 VictimProfile.INFANT -> tr("2 doigts au centre • Enfoncer de 3 à 4 cm • Rythme doux", "Two fingers in the centre • Push 3 to 4 cm • Gentle rhythm")
             }
+            val (gesture, gestureLabel) = when (profile) {
+                VictimProfile.ADULT -> Gestures.CprAdult to tr("Schéma : adulte allongé sur le dos, sauveteur à genoux, bras tendus à la verticale, deux mains superposées au centre de la poitrine, flèche vers le bas.", "Diagram: adult lying on their back, rescuer kneeling with straight vertical arms, both hands stacked in the centre of the chest, arrow pointing down.")
+                VictimProfile.CHILD -> Gestures.CprChild to tr("Schéma : enfant allongé sur le dos, une seule main au centre de la poitrine, flèche vers le bas.", "Diagram: child lying on their back, one hand in the centre of the chest, arrow pointing down.")
+                VictimProfile.INFANT -> Gestures.CprInfant to tr("Schéma : nourrisson vu du dessus, deux doigts au centre de la poitrine, juste sous la ligne des mamelons.", "Diagram: infant seen from above, two fingers in the centre of the chest just below the nipple line.")
+            }
+            GestureIllustration(gesture, gestureLabel)
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 postureText,
                 style = MaterialTheme.typography.bodyMedium,

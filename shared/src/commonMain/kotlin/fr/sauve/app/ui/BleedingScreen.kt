@@ -177,6 +177,9 @@ fun BleedingScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+                GestureIllustration(Gestures.BleedingPressure, tr("Schéma : une main à plat avec un linge appuie fort sur un avant-bras, flèche vers le bas.", "Diagram: a flat hand with a cloth pressing hard on a forearm, arrow pointing down."))
+                Spacer(modifier = Modifier.height(8.dp))
+
                 // Consignes réflexes
                 Column(
                     modifier = Modifier
