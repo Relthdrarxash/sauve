@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_tagline">Premiers secours anti-panique</string>
+    <string name="emergency_call">Appel d\'Urgence</string>
+    <string name="samu_15">15 · SAMU</string>
+    <string name="pompiers_18">18 · Pompiers</string>
+    <string name="europe_112">112 · Urgence Europe</string>
+    <string name="sms_114">114 · SMS Urgence</string>
+    <string name="shortcut_cardiac">Arrêt cardiaque</string>
+    <string name="shortcut_choking">Étouffement</string>
+    <string name="shortcut_bleeding">Hémorragie</string>
+    <string name="shortcut_recovery">PLS et brûlure</string>
+    <string name="widget_call">Appeler le 15</string>
+    <string name="widget_call_number">15</string>
+    <string name="widget_description">Les gestes vitaux et le 15 en un tap.</string>
+    <string name="review_channel">Révision des gestes</string>
+    <string name="review_title">Deux minutes pour réviser ?</string>
+    <string name="review_text">Les gestes s\'oublient sans pratique. Refaites le rythme du massage cardiaque sur un coussin.</string>
+</resources>

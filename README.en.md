@@ -38,3 +38,7 @@ In an emergency, adrenaline and panic induce tunnel vision and motor impairment.
 - **[Lunaison](https://github.com/Relthdrarxash/lunaison):** Intimate menstrual cycle tracker 100% offline
 - **[Sommelle](https://github.com/Relthdrarxash/sommelle):** Sleep log & consistency without ads or account
 - **[Sauve](https://github.com/Relthdrarxash/sauve):** Anti-panic first aid 100% offline
+
+## License
+
+Distributed under the [Mozilla Public License 2.0](LICENSE) (MPL-2.0): you can use, study, modify and redistribute it; files you modify must stay under the same license, with their source code.

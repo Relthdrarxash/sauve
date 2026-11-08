@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Sauve"
 include(":app")
+include(":shared")

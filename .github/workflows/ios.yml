@@ -1,0 +1,44 @@
+name: iOS
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Choisir Xcode 16
+        run: |
+          ls -d /Applications/Xcode*.app
+          sudo xcode-select -s /Applications/Xcode_16.4.app
+          xcodebuild -version
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Lancer les tests communs sur le simulateur iPhone
+        run: |
+          chmod +x gradlew
+          ./gradlew :shared:iosSimulatorArm64Test --no-daemon
+
+      - name: Générer le projet Xcode
+        run: |
+          brew install xcodegen
+          cd iosApp && xcodegen generate
+
+      - name: Compiler l'appli iPhone (simulateur, sans signature)
+        run: |
+          cd iosApp
+          xcodebuild -project Sauve.xcodeproj -scheme Sauve -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO build

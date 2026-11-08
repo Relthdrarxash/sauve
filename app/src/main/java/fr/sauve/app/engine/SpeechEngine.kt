@@ -1,5 +1,7 @@
 package fr.sauve.app.engine
 
+import fr.sauve.app.platform.Speech
+import fr.sauve.app.i18n.isFrench
 import android.content.Context
 import android.media.AudioAttributes
 import android.os.Build
@@ -11,16 +13,18 @@ import java.util.Locale
  * Moteur de synthèse vocale locale pour guider les secours mains-libres.
  * Fonctionne 100 % hors-ligne avec sélection automatique de la voix haute définition (non robotique).
  */
-class SpeechEngine(context: Context) : TextToSpeech.OnInitListener {
+class SpeechEngine(context: Context) : TextToSpeech.OnInitListener, Speech {
 
     private var tts: TextToSpeech? = TextToSpeech(context.applicationContext, this)
     private var isInitialized: Boolean = false
+    private val voiceLocale: Locale = if (isFrench()) Locale.FRENCH else Locale.ENGLISH
 
     var isVoiceEnabled: Boolean = true
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = tts?.setLanguage(Locale.FRENCH)
+            // La voix suit la langue de l'interface : français, ou anglais pour tous les autres.
+            val result = tts?.setLanguage(voiceLocale)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 tts?.language = Locale.getDefault()
             }
@@ -50,7 +54,7 @@ class SpeechEngine(context: Context) : TextToSpeech.OnInitListener {
         try {
             val voices = tts?.voices ?: return
             val frenchVoices = voices.filter { voice ->
-                voice.locale.language == Locale.FRENCH.language && !voice.isNetworkConnectionRequired
+                voice.locale.language == voiceLocale.language && !voice.isNetworkConnectionRequired
             }
             if (frenchVoices.isNotEmpty()) {
                 val bestVoice = frenchVoices.maxWithOrNull(
@@ -70,14 +74,14 @@ class SpeechEngine(context: Context) : TextToSpeech.OnInitListener {
      * @param text phrase à énoncer
      * @param flush si true, interrompt immédiatement la phrase précédente pour donner la nouvelle consigne
      */
-    fun speak(text: String, flush: Boolean = true) {
+    override fun speak(text: String, flush: Boolean) {
         if (!isVoiceEnabled || !isInitialized) return
         val mode = if (flush) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
         tts?.speak(text, mode, null, text.hashCode().toString())
     }
 
     /** Arrête immédiatement toute parole en cours. */
-    fun stop() {
+    override fun stop() {
         if (isInitialized) {
             tts?.stop()
         }

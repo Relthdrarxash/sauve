@@ -1,6 +1,6 @@
 Sauve is an open-source first aid and vital emergency app, designed to guide you quickly and accurately when every second counts.
 
-Free, open-source (GPL-3.0), ad-free, account-free, and 100% offline: it does not even ask for Internet permission. It works instantly everywhere, even in dead zones, undergrounds, or remote outdoor trails.
+Free, open-source (MPL-2.0), ad-free, account-free, and 100% offline: it does not even ask for Internet permission. It works instantly everywhere, even in dead zones, undergrounds, or remote outdoor trails.
 
 THE 4 VITAL EMERGENCIES STEP BY STEP
 • Cardiac Arrest: Express responsiveness and breathing diagnosis, direct emergency dispatch (112 / 911), 110 bpm haptic metronome vibrating right in your pocket so you can keep both hands and eyes on the victim, vocal compression count guidance (continuous or 30:2 ratio), rescuer rotation reminder every 2 minutes, and AED operation guide.
