@@ -1,0 +1,33 @@
+# Coque iPhone de Sauve, générée par XcodeGen (`xcodegen generate`) : aucun .xcodeproj n'est commité.
+# Toute l'appli vient du framework Shared compilé par Gradle depuis le module shared.
+name: Sauve
+options:
+  bundleIdPrefix: fr.sauve
+  deploymentTarget:
+    iOS: "15.0"
+settings:
+  base:
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  Sauve:
+    type: application
+    platform: iOS
+    sources:
+      - Sauve
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: fr.sauve.app
+        PRODUCT_NAME: Sauve
+        INFOPLIST_FILE: Sauve/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "1"
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        FRAMEWORK_SEARCH_PATHS: $(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)
+        OTHER_LDFLAGS: $(inherited) -framework Shared
+    preBuildScripts:
+      - name: Compiler le module shared
+        basedOnDependencyAnalysis: false
+        script: |
+          cd "$SRCROOT/.."
+          ./gradlew :shared:embedAndSignAppleFrameworkForXcode
