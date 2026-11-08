@@ -41,8 +41,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fr.sauve.app.data.VictimProfile
-import fr.sauve.app.engine.HapticMetronome
-import fr.sauve.app.engine.SpeechEngine
+import fr.sauve.app.platform.Metronome
+import fr.sauve.app.platform.Speech
 import fr.sauve.app.ui.theme.EmergencyGreen
 import fr.sauve.app.ui.theme.EmergencyOrange
 import fr.sauve.app.ui.theme.EmergencyRed
@@ -57,8 +57,8 @@ enum class ChokingPhase {
 
 @Composable
 fun ChokingScreen(
-    metronome: HapticMetronome,
-    speechEngine: SpeechEngine,
+    metronome: Metronome,
+    speechEngine: Speech,
     onBack: () -> Unit,
     onVictimUnconscious: () -> Unit,
 ) {

@@ -1,5 +1,6 @@
 package fr.sauve.app.engine
 
+import fr.sauve.app.platform.Speech
 import fr.sauve.app.i18n.isFrench
 import android.content.Context
 import android.media.AudioAttributes
@@ -12,7 +13,7 @@ import java.util.Locale
  * Moteur de synthèse vocale locale pour guider les secours mains-libres.
  * Fonctionne 100 % hors-ligne avec sélection automatique de la voix haute définition (non robotique).
  */
-class SpeechEngine(context: Context) : TextToSpeech.OnInitListener {
+class SpeechEngine(context: Context) : TextToSpeech.OnInitListener, Speech {
 
     private var tts: TextToSpeech? = TextToSpeech(context.applicationContext, this)
     private var isInitialized: Boolean = false
@@ -73,14 +74,14 @@ class SpeechEngine(context: Context) : TextToSpeech.OnInitListener {
      * @param text phrase à énoncer
      * @param flush si true, interrompt immédiatement la phrase précédente pour donner la nouvelle consigne
      */
-    fun speak(text: String, flush: Boolean = true) {
+    override fun speak(text: String, flush: Boolean) {
         if (!isVoiceEnabled || !isInitialized) return
         val mode = if (flush) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
         tts?.speak(text, mode, null, text.hashCode().toString())
     }
 
     /** Arrête immédiatement toute parole en cours. */
-    fun stop() {
+    override fun stop() {
         if (isInitialized) {
             tts?.stop()
         }

@@ -1,9 +1,9 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.currentTimeHHmm
+import fr.sauve.app.i18n.minutesSeconds
+import fr.sauve.app.platform.LocalSauvePlatform
 import fr.sauve.app.i18n.tr
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,26 +38,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import fr.sauve.app.engine.SpeechEngine
+import fr.sauve.app.platform.Speech
 import fr.sauve.app.ui.theme.EmergencyCrimson
 import fr.sauve.app.ui.theme.EmergencyGreen
 import fr.sauve.app.ui.theme.EmergencyOrange
 import kotlinx.coroutines.delay
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @Composable
 fun BleedingScreen(
-    speechEngine: SpeechEngine,
+    speechEngine: Speech,
     onBack: () -> Unit,
 ) {
-    val context = LocalContext.current
+    val platform = LocalSauvePlatform.current
     var isTimerActive by remember { mutableStateOf(true) }
     var compressionSeconds by rememberSaveable { mutableLongStateOf(0L) }
     var showForeignBodyDialog by remember { mutableStateOf(false) }
@@ -80,7 +76,7 @@ fun BleedingScreen(
 
     val mins = compressionSeconds / 60
     val secs = compressionSeconds % 60
-    val timerStr = String.format("%02d:%02d", mins, secs)
+    val timerStr = minutesSeconds(mins * 60 + secs)
 
     Column(
         modifier = Modifier
@@ -168,8 +164,7 @@ fun BleedingScreen(
                 // Bouton Appel SAMU
                 Button(
                     onClick = {
-                        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:15"))
-                        context.startActivity(intent)
+                        platform.dial("15")
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = EmergencyCrimson),
                     shape = RoundedCornerShape(14.dp),
@@ -259,7 +254,7 @@ fun BleedingScreen(
                 confirmButton = {
                     Button(
                         onClick = {
-                            val now = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+                            val now = currentTimeHHmm()
                             tourniquetTime = now
                             speechEngine.speak(tr("Garrot noté à $now. Ne le desserrez sous aucun prétexte.", "Tourniquet noted at $now. Do not loosen it under any circumstances."))
                             showTourniquetDialog = false

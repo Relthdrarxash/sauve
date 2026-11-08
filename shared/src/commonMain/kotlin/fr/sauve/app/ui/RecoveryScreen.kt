@@ -1,9 +1,8 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.minutesSeconds
+import fr.sauve.app.platform.LocalSauvePlatform
 import fr.sauve.app.i18n.tr
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,13 +38,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import fr.sauve.app.engine.HapticMetronome
-import fr.sauve.app.engine.SpeechEngine
+import fr.sauve.app.platform.Metronome
+import fr.sauve.app.platform.Speech
 import fr.sauve.app.ui.theme.EmergencyBlue
 import fr.sauve.app.ui.theme.EmergencyGreen
 import fr.sauve.app.ui.theme.EmergencyOrange
@@ -60,11 +58,11 @@ enum class RecoverySubTopic {
 
 @Composable
 fun RecoveryScreen(
-    metronome: HapticMetronome,
-    speechEngine: SpeechEngine,
+    metronome: Metronome,
+    speechEngine: Speech,
     onBack: () -> Unit,
 ) {
-    val context = LocalContext.current
+    val platform = LocalSauvePlatform.current
     var topic by rememberSaveable { mutableStateOf(RecoverySubTopic.PLS) }
 
     // Minuteur brûlure (15 minutes = 900 secondes)
@@ -187,8 +185,7 @@ fun RecoveryScreen(
 
                         Button(
                             onClick = {
-                                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:15"))
-                                context.startActivity(intent)
+                                platform.dial("15")
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = EmergencyBlue),
                             shape = RoundedCornerShape(12.dp),
@@ -205,7 +202,7 @@ fun RecoveryScreen(
             RecoverySubTopic.BURNS -> {
                 val mins = burnSecondsRemaining / 60
                 val secs = burnSecondsRemaining % 60
-                val timerStr = String.format("%02d:%02d", mins, secs)
+                val timerStr = minutesSeconds((mins * 60 + secs).toLong())
 
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -300,8 +297,7 @@ fun RecoveryScreen(
 
                         Button(
                             onClick = {
-                                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:15"))
-                                context.startActivity(intent)
+                                platform.dial("15")
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = EmergencyRed),
                             shape = RoundedCornerShape(12.dp),

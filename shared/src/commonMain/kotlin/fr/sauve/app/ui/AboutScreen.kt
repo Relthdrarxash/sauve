@@ -1,9 +1,7 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.platform.LocalSauvePlatform
 import fr.sauve.app.i18n.tr
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +25,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,19 +36,9 @@ import fr.sauve.app.ui.theme.EmergencyRed
 fun AboutScreen(
     onBack: () -> Unit,
 ) {
-    val context = LocalContext.current
+    val platform = LocalSauvePlatform.current
 
-    fun openPlayStore(pkg: String) {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg"))
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-        } catch (_: Exception) {
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$pkg"))
-            webIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(webIntent)
-        }
-    }
+    fun openPlayStore(pkg: String) = platform.openStore(pkg)
 
     Column(
         modifier = Modifier
@@ -108,7 +95,7 @@ fun AboutScreen(
                         .padding(14.dp),
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
-                    Text(tr("• Aucune permission INTERNET (étanchéité absolue)", "• No INTERNET permission (fully sealed)"), fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 13.sp)
+                    Text(tr("• Aucune connexion réseau : rien ne quitte le téléphone", "• No network connection: nothing leaves the phone"), fontWeight = FontWeight.Bold, color = EmergencyGreen, fontSize = 13.sp)
                     Text(tr("• Démarrage immédiat sans compte ni écran de veille", "• Starts instantly, no account, no splash screen"), fontSize = 13.sp)
                     Text(tr("• Métronome haptique haute précision à 110 bpm", "• High-precision haptic metronome at 110 bpm"), fontSize = 13.sp)
                     Text(tr("• Synthèse vocale pas-à-pas mains-libres", "• Hands-free, step-by-step voice guidance"), fontSize = 13.sp)
@@ -116,42 +103,45 @@ fun AboutScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        // Les autres applis de la suite ne sont publiées que sur Android pour l'instant.
+        if (platform.canOpenStore) {
+            Spacer(modifier = Modifier.height(20.dp))
 
-        // Suite Pilmil Studio
-        Text(
-            tr("La suite Pilmil Studio", "The Pilmil Studio suite"),
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-        )
-        Text(
-            tr("Des biens communs numériques éthiques, libres et respectueux.", "Ethical, free and respectful digital commons."),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+            // Suite Pilmil Studio
+            Text(
+                tr("La suite Pilmil Studio", "The Pilmil Studio suite"),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                tr("Des biens communs numériques éthiques, libres et respectueux.", "Ethical, free and respectful digital commons."),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
 
-        Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-        CompanionAppCard(
-            title = "Respire",
-            description = tr("Déconnexion sereine & micro-pauses sans tracking", "Calm disconnection & micro-breaks, no tracking"),
-            pkg = "fr.respire.app",
-            onOpen = { openPlayStore("fr.respire.app") },
-        )
+            CompanionAppCard(
+                title = "Respire",
+                description = tr("Déconnexion sereine & micro-pauses sans tracking", "Calm disconnection & micro-breaks, no tracking"),
+                pkg = "fr.respire.app",
+                onOpen = { openPlayStore("fr.respire.app") },
+            )
 
-        CompanionAppCard(
-            title = "Lunaison",
-            description = tr("Suivi de cycle intime 100 % confidentiel & hors-ligne", "100% private, offline cycle tracking"),
-            pkg = "fr.lunaison",
-            onOpen = { openPlayStore("fr.lunaison") },
-        )
+            CompanionAppCard(
+                title = "Lunaison",
+                description = tr("Suivi de cycle intime 100 % confidentiel & hors-ligne", "100% private, offline cycle tracking"),
+                pkg = "fr.lunaison",
+                onOpen = { openPlayStore("fr.lunaison") },
+            )
 
-        CompanionAppCard(
-            title = "Sommelle",
-            description = tr("Journal du sommeil sans pub ni compte", "Sleep diary with no ads or account"),
-            pkg = "fr.sommelle",
-            onOpen = { openPlayStore("fr.sommelle") },
-        )
+            CompanionAppCard(
+                title = "Sommelle",
+                description = tr("Journal du sommeil sans pub ni compte", "Sleep diary with no ads or account"),
+                pkg = "fr.sommelle",
+                onOpen = { openPlayStore("fr.sommelle") },
+            )
+        }
     }
 }
 

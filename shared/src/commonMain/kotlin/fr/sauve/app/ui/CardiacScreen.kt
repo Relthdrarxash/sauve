@@ -1,9 +1,8 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.i18n.minutesSeconds
+import fr.sauve.app.platform.LocalSauvePlatform
 import fr.sauve.app.i18n.tr
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -54,14 +53,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fr.sauve.app.data.VictimProfile
-import fr.sauve.app.engine.HapticMetronome
-import fr.sauve.app.engine.SpeechEngine
+import fr.sauve.app.platform.Metronome
+import fr.sauve.app.platform.Speech
 import fr.sauve.app.ui.theme.EmergencyGreen
 import fr.sauve.app.ui.theme.EmergencyOrange
 import fr.sauve.app.ui.theme.EmergencyRed
@@ -75,14 +73,14 @@ enum class CardiacStep {
 
 @Composable
 fun CardiacScreen(
-    metronome: HapticMetronome,
-    speechEngine: SpeechEngine,
+    metronome: Metronome,
+    speechEngine: Speech,
     onBack: () -> Unit,
     onNavigateToPls: () -> Unit,
     /** Mode entraînement : directement au massage, sans appel ni étapes de bilan. */
     training: Boolean = false,
 ) {
-    val context = LocalContext.current
+    val platform = LocalSauvePlatform.current
     var step by rememberSaveable { mutableStateOf(if (training) CardiacStep.CPR_ACTIVE else CardiacStep.CHECK_CONSCIOUSNESS) }
     var profile by rememberSaveable { mutableStateOf(VictimProfile.ADULT) }
     var isContinuousMode by rememberSaveable { mutableStateOf(true) } // Continu par défaut (recommandé grand public)
@@ -264,8 +262,7 @@ fun CardiacScreen(
                         Spacer(modifier = Modifier.height(20.dp))
                         Button(
                             onClick = {
-                                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:15"))
-                                context.startActivity(intent)
+                                platform.dial("15")
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = EmergencyRed),
                             modifier = Modifier
@@ -319,8 +316,8 @@ fun CardiacScreen(
 @Composable
 private fun CprActiveScreen(
     profile: VictimProfile,
-    metronome: HapticMetronome,
-    speechEngine: SpeechEngine,
+    metronome: Metronome,
+    speechEngine: Speech,
     isContinuousMode: Boolean,
     isRunning: Boolean,
     compressionCount: Int,
@@ -332,7 +329,7 @@ private fun CprActiveScreen(
 ) {
     val mins = elapsedSeconds / 60
     val secs = elapsedSeconds % 60
-    val timerStr = String.format("%02d:%02d", mins, secs)
+    val timerStr = minutesSeconds(mins * 60 + secs)
 
     // Pulse animation pour le disque de compression
     val scale = remember { Animatable(1f) }

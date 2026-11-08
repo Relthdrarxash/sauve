@@ -1,10 +1,7 @@
 package fr.sauve.app.ui
 
+import fr.sauve.app.platform.LocalSauvePlatform
 import fr.sauve.app.i18n.tr
-import android.Manifest
-import android.os.Build
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.getValue
@@ -12,10 +9,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.semantics.Role
-import fr.sauve.app.reminder.ReviewReminder
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -47,7 +40,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -64,22 +56,13 @@ fun HomeScreen(
     onOpenAbout: () -> Unit,
     onOpenTraining: () -> Unit = {},
 ) {
-    val context = LocalContext.current
-    var reviewOn by remember { mutableStateOf(ReviewReminder.isEnabled(context)) }
-    val notificationPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        ReviewReminder.setEnabled(context, granted)
-        reviewOn = granted
-    }
+    val platform = LocalSauvePlatform.current
+    val reviewReminder = platform.reviewReminder
+    var reviewOn by remember { mutableStateOf(reviewReminder?.isEnabled() == true) }
 
-    fun callNumber(num: String) {
-        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$num"))
-        context.startActivity(intent)
-    }
+    fun callNumber(num: String) = platform.dial(num)
 
-    fun sendSms(num: String) {
-        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$num"))
-        context.startActivity(intent)
-    }
+    fun sendSms(num: String) = platform.sms(num)
 
     Column(
         modifier = Modifier
@@ -226,28 +209,25 @@ fun HomeScreen(
         ) {
             Text(tr("S'entraîner au massage cardiaque (2 min)", "Practise chest compressions (2 min)"), fontWeight = FontWeight.SemiBold)
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 48.dp)
-                .toggleable(value = reviewOn, role = Role.Switch) { on ->
-                    if (on && !ReviewReminder.canNotify(context) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
-                    } else {
-                        ReviewReminder.setEnabled(context, on)
-                        reviewOn = on
+        if (reviewReminder != null) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp)
+                    .toggleable(value = reviewOn, role = Role.Switch) { on ->
+                        reviewReminder.setEnabled(on) { reviewOn = it }
                     }
-                }
-                .padding(horizontal = 4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                tr("Me proposer une révision tous les 3 mois", "Suggest a refresher every 3 months"),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(checked = reviewOn, onCheckedChange = null)
+                    .padding(horizontal = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    tr("Me proposer une révision tous les 3 mois", "Suggest a refresher every 3 months"),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.weight(1f),
+                )
+                Switch(checked = reviewOn, onCheckedChange = null)
+            }
         }
         Spacer(modifier = Modifier.height(16.dp))
 
