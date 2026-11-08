@@ -1,6 +1,6 @@
 Sauve est une application d'urgence vitale et de premiers secours, conçue pour agir vite et juste quand chaque seconde compte. 
 
-Totalement libre (GPL-3.0), gratuite, sans publicité, sans inscription et 100 % hors-ligne : elle ne demande même pas la permission d'accéder à Internet. Elle fonctionne instantanément, partout, même en zone blanche, en sous-sol ou en forêt.
+Totalement libre (MPL-2.0), gratuite, sans publicité, sans inscription et 100 % hors-ligne : elle ne demande même pas la permission d'accéder à Internet. Elle fonctionne instantanément, partout, même en zone blanche, en sous-sol ou en forêt.
 
 LES 4 URGENCES VITALES GUIDÉES PAS À PAS
 • Arrêt Cardiaque : Diagnostic express conscience/respiration, appel direct des secours (15 / 112), métronome haptique à 110 bpm qui vibre dans votre poche pour cadencer le massage sans quitter la victime des yeux, guidage vocal du compte des compressions (en continu ou cycle 30:2), rappel de relais toutes les 2 minutes et guide d'utilisation du DAE.

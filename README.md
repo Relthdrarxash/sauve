@@ -46,3 +46,7 @@ Sous l'effet du stress et de l'adrénaline, la mémoire flanche et la vue se ré
 - **[Lunaison](https://github.com/Relthdrarxash/lunaison) :** Suivi intime du cycle menstruel 100 % hors-ligne
 - **[Sommelle](https://github.com/Relthdrarxash/sommelle) :** Journal et régularité du sommeil sans pub ni compte
 - **[Sauve](https://github.com/Relthdrarxash/sauve) :** Premiers secours anti-panique 100 % hors-ligne
+
+## Licence
+
+Distribuée sous licence [Mozilla Public License 2.0](LICENSE) (MPL-2.0) : vous pouvez l'utiliser, l'étudier, la modifier et la redistribuer ; les fichiers que vous modifiez doivent rester publiés sous la même licence, avec leur code source.
