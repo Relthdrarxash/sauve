@@ -1,0 +1,172 @@
+{
+  "brand": {
+    "name": "Sauve",
+    "bg1": "#222830",
+    "bg2": "#0F1216",
+    "accent": "#E53935",
+    "onBg": "#F2F4F7",
+    "icon": "fastlane/metadata/android/fr-FR/images/icon.png",
+    "font": {
+      "file": "docs/fonts/atkinson-800.woff2",
+      "weight": 800,
+      "body_file": "docs/fonts/atkinson-400.woff2",
+      "bold_file": "docs/fonts/atkinson-700.woff2"
+    }
+  },
+  "langs": {
+    "fr": {
+      "tagline": "Premiers secours anti-panique",
+      "social_line": "Premiers secours anti-panique, 100 % hors-ligne. Gratuit, sans compte, sans collecte de données.",
+      "chips": [
+        "Sans compte",
+        "Hors ligne"
+      ],
+      "feature_capture": "docs/marketing/captures/accueil.png",
+      "banner_captures": [
+        "docs/marketing/captures/accueil.png",
+        "docs/marketing/captures/massage.png",
+        "docs/marketing/captures/hemorragie.png"
+      ],
+      "screens": [
+        {
+          "slug": "accueil",
+          "capture": "docs/marketing/captures/accueil.png",
+          "layout": "solo",
+          "tilt": -3,
+          "title": "Urgences vitales à portée de main",
+          "subtitle": "Quatre urgences guidées pas à pas, avec appel direct au 15, 18, 112 ou 114.",
+          "chips": [
+            "Gratuit",
+            "Sans compte"
+          ]
+        },
+        {
+          "slug": "arret_cardiaque",
+          "capture": "docs/marketing/captures/massage.png",
+          "layout": "solo",
+          "tilt": 3,
+          "title": "Arrêt cardiaque : masser en rythme",
+          "subtitle": "Un métronome haptique à 110 bpm et un compteur de compressions.",
+          "chips": []
+        },
+        {
+          "slug": "etouffement",
+          "capture": "docs/marketing/captures/etouffement.png",
+          "layout": "solo",
+          "tilt": -3,
+          "title": "Étouffement : un diagnostic immédiat",
+          "subtitle": "Obstruction partielle ou totale, puis protocole guidé 5 claques et 5 compressions.",
+          "chips": []
+        },
+        {
+          "slug": "hemorragie",
+          "capture": "docs/marketing/captures/hemorragie.png",
+          "layout": "solo",
+          "tilt": 3,
+          "title": "Hémorragie : compression directe",
+          "subtitle": "Chronomètre de maintien, appel du 15 en haut-parleur et consignes de garrot.",
+          "chips": []
+        },
+        {
+          "slug": "pls",
+          "capture": "docs/marketing/captures/pls.png",
+          "layout": "solo",
+          "tilt": -3,
+          "title": "Position latérale de sécurité",
+          "subtitle": "Quatre étapes illustrées pour une personne inconsciente qui respire normalement.",
+          "chips": []
+        },
+        {
+          "slug": "hors_ligne",
+          "capture": "docs/marketing/captures/apropos.png",
+          "layout": "solo",
+          "tilt": 3,
+          "title": "Hors ligne, sans compte",
+          "subtitle": "Aucune connexion réseau : rien ne quitte le téléphone. Sans publicité.",
+          "chips": [
+            "Libre",
+            "Sans publicité",
+            "Ne remplace pas une formation"
+          ]
+        }
+      ]
+    },
+    "en": {
+      "tagline": "Anti-panic first aid",
+      "social_line": "Anti-panic first aid, 100% offline. Free, no account, no data collection.",
+      "chips": [
+        "No account",
+        "Offline"
+      ],
+      "feature_capture": "docs/marketing/captures/accueil.png",
+      "banner_captures": [
+        "docs/marketing/captures/accueil.png",
+        "docs/marketing/captures/massage.png",
+        "docs/marketing/captures/hemorragie.png"
+      ],
+      "screens": [
+        {
+          "slug": "accueil",
+          "capture": "docs/marketing/captures/accueil.png",
+          "layout": "solo",
+          "tilt": -3,
+          "title": "Vital emergencies at your fingertips",
+          "subtitle": "Four emergencies guided step by step, with direct calls to 15, 18, 112 or 114.",
+          "chips": [
+            "Free",
+            "No account"
+          ]
+        },
+        {
+          "slug": "arret_cardiaque",
+          "capture": "docs/marketing/captures/massage.png",
+          "layout": "solo",
+          "tilt": 3,
+          "title": "Cardiac arrest: press to the beat",
+          "subtitle": "A haptic metronome at 110 bpm and a compression counter.",
+          "chips": []
+        },
+        {
+          "slug": "etouffement",
+          "capture": "docs/marketing/captures/etouffement.png",
+          "layout": "solo",
+          "tilt": -3,
+          "title": "Choking: an immediate check",
+          "subtitle": "Partial or complete obstruction, then a guided cycle of 5 back blows and 5 thrusts.",
+          "chips": []
+        },
+        {
+          "slug": "hemorragie",
+          "capture": "docs/marketing/captures/hemorragie.png",
+          "layout": "solo",
+          "tilt": 3,
+          "title": "Severe bleeding: direct pressure",
+          "subtitle": "Hold timer, loudspeaker call to 15 and tourniquet instructions.",
+          "chips": []
+        },
+        {
+          "slug": "pls",
+          "capture": "docs/marketing/captures/pls.png",
+          "layout": "solo",
+          "tilt": -3,
+          "title": "Recovery position",
+          "subtitle": "Four illustrated steps for an unconscious person who is breathing normally.",
+          "chips": []
+        },
+        {
+          "slug": "hors_ligne",
+          "capture": "docs/marketing/captures/apropos.png",
+          "layout": "solo",
+          "tilt": 3,
+          "title": "Offline, no account",
+          "subtitle": "No network connection: nothing leaves the phone. No ads.",
+          "chips": [
+            "Open source",
+            "No ads",
+            "Not a substitute for training"
+          ]
+        }
+      ]
+    }
+  }
+}
