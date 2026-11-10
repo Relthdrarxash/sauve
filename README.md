@@ -4,11 +4,11 @@
 
 [![Build](https://github.com/Relthdrarxash/sauve/actions/workflows/build.yml/badge.svg)](https://github.com/Relthdrarxash/sauve/actions/workflows/build.yml)
 
-Application Android de **premiers secours « Anti-Panique »**, 100 % hors-ligne, gratuite, sans publicité, sans inscription et sans aucune collecte de données. Fait partie de la suite d'applications de biens communs **Pilmil Studio** (avec *Lunaison*, *Sommelle* et *Respire*).
+Application Android de **premiers secours « Anti-Panique »**, 100 % hors-ligne, gratuite, sans publicité, sans inscription et sans aucune collecte de données. Fait partie de la suite d'applications de biens communs **Pilmil Studio** (avec *Lunaison*, *Sommelle*, *Respire* et *Sillon*).
 
 Sous l'effet du stress et de l'adrénaline, la mémoire flanche et la vue se rétrécit en tunnel. **Sauve** est pensée pour aller droit au but en moins de 300 ms, sans menu complexe, avec un guidage vocal et haptique mains-libres.
 
-**[Site officiel Sauve](https://relthdrarxash.github.io/sauve/)** · **[Google Play](https://play.google.com/store/apps/details?id=fr.sauve.app)** · **[Télécharger l'APK](https://github.com/Relthdrarxash/sauve/releases/latest)**
+**[Site officiel Sauve](https://relthdrarxash.github.io/sauve/)** · **[Google Play](https://play.google.com/store/apps/details?id=fr.sauve.app)** · **[Télécharger la préversion (APK)](https://github.com/Relthdrarxash/sauve/releases/tag/dev)**
 
 ---
 
@@ -36,7 +36,7 @@ Sous l'effet du stress et de l'adrénaline, la mémoire flanche et la vue se ré
 ## Installation
 
 - **Google Play :** [Fiche de Sauve](https://play.google.com/store/apps/details?id=fr.sauve.app)
-- **APK direct :** Téléchargez la dernière version signée sur la page [Releases](https://github.com/Relthdrarxash/sauve/releases/latest).
+- **APK direct :** Téléchargez la [préversion](https://github.com/Relthdrarxash/sauve/releases/tag/dev) (signée avec la clé de développement, une version signée de publication suivra).
 
 ---
 

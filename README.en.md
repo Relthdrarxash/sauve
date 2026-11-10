@@ -4,11 +4,11 @@
 
 [![Build](https://github.com/Relthdrarxash/sauve/actions/workflows/build.yml/badge.svg)](https://github.com/Relthdrarxash/sauve/actions/workflows/build.yml)
 
-An **anti-panic first aid** Android application, 100% offline, free, ad-free, with no account, no tracking and zero internet permission. Part of the **Pilmil Studio** public interest suite (along with *Lunaison*, *Sommelle* and *Respire*).
+An **anti-panic first aid** Android application, 100% offline, free, ad-free, with no account, no tracking and zero internet permission. Part of the **Pilmil Studio** public interest suite (along with *Lunaison*, *Sommelle*, *Respire* and *Sillon*).
 
 In an emergency, adrenaline and panic induce tunnel vision and motor impairment. **Sauve** is designed to open in under 300 ms, skip all non-essential menus, and provide step-by-step hands-free voice and haptic feedback.
 
-**[Sauve website](https://relthdrarxash.github.io/sauve/)** · **[Google Play](https://play.google.com/store/apps/details?id=fr.sauve.app)** · **[Download APK](https://github.com/Relthdrarxash/sauve/releases/latest)**
+**[Sauve website](https://relthdrarxash.github.io/sauve/)** · **[Google Play](https://play.google.com/store/apps/details?id=fr.sauve.app)** · **[Download the preview build (APK)](https://github.com/Relthdrarxash/sauve/releases/tag/dev)**
 
 ---
 
