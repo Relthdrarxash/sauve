@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sauve privacy policy</title>
+<meta name="description" content="Sauve guides first aid with voice and vibration: cardiac arrest, choking, severe bleeding, unconsciousness. Free, open source, no account, no network.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sauve privacy policy">
+<meta property="og:description" content="Sauve guides first aid with voice and vibration: cardiac arrest, choking, severe bleeding, unconsciousness. Free, open source, no account, no network.">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="alternate" hreflang="fr" href="../confidentialite.html">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root {
+  --bg: #0F1216; --bg2: #222830; --fg: #F2F4F7; --muted: #A9B2BE; --line: #2E353F;
+  --accent: #F0524E; --accent-solid: #E53935; --on-accent: #fff;
+  --panel: color-mix(in srgb, #fff 5%, transparent);
+  --font: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #F6F7F9; --bg2: #E6E9EE; --fg: #14181D; --muted: #55606D; --line: #D4D9E0;
+    --accent: #C62828; --accent-solid: #C62828;
+    --panel: color-mix(in srgb, #000 4%, transparent);
+    color-scheme: light;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(48rem 34rem at 92% -6%, color-mix(in srgb, var(--accent-solid) 30%, transparent), transparent 62%),
+    radial-gradient(44rem 32rem at -8% 22%, color-mix(in srgb, #5B7C99 22%, transparent), transparent 62%),
+    radial-gradient(46rem 34rem at 100% 62%, color-mix(in srgb, var(--accent-solid) 14%, transparent), transparent 62%),
+    radial-gradient(44rem 30rem at 0% 96%, color-mix(in srgb, #5B7C99 18%, transparent), transparent 62%);
+  background-repeat: no-repeat;
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.6;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1060px; margin: 0 auto; padding-inline: 20px; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; font-size: 1.3rem; }
+.brand img { width: 40px; height: 40px; border-radius: 10px; display: block; }
+.nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.95rem; color: var(--muted); }
+.nav a { text-decoration: none; }
+.nav a:hover { color: var(--fg); text-decoration: underline; }
+
+.hero { display: grid; gap: 32px; padding-block: 28px 44px; align-items: center; }
+.kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+h1 { font-size: clamp(2.3rem, 7vw, 4rem); line-height: 1.04; letter-spacing: -0.02em; margin: 0; text-wrap: balance; font-weight: 700; }
+.lead { color: var(--muted); font-size: 1.15rem; max-width: 34em; margin: 20px 0 0; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; border: 1.5px solid var(--line); }
+.btn.primary { background: linear-gradient(120deg, var(--accent-solid), color-mix(in srgb, var(--accent-solid) 70%, #7a0d0d)); border-color: transparent; color: var(--on-accent); }
+.btn:hover { border-color: var(--fg); }
+.btn.primary:hover { filter: brightness(1.08); }
+.shot { justify-self: center; }
+.shot img { display: block; width: min(300px, 70vw); height: auto; border-radius: 28px; box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6); }
+@media (min-width: 860px) { .hero { grid-template-columns: 1.15fr 0.85fr; } .shot { justify-self: end; } }
+
+section { padding-block: 34px; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 24px; max-width: 38em; }
+
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.card { padding: 22px; border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(150deg, color-mix(in srgb, var(--accent-solid) 12%, var(--bg)), var(--panel)); min-width: 0; }
+.card h3 { margin: 0 0 8px; font-size: 1.2rem; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+.card .tag { display: inline-block; margin-bottom: 10px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+.feat { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.feat div { padding: 4px 0 4px 18px; border-left: 3px solid var(--accent-solid); min-width: 0; }
+.feat h3 { margin: 0 0 4px; font-size: 1.15rem; }
+.feat p { margin: 0; color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+
+.gallery { display: flex; gap: 16px; overflow-x: auto; padding: 4px 20px 18px; margin-inline: -20px; scroll-snap-type: x proximity; }
+.gallery img { flex: 0 0 auto; width: 210px; height: auto; border-radius: 20px; scroll-snap-align: start; border: 1px solid var(--line); display: block; }
+
+.rules { display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); border-top: 1px solid var(--line); list-style: none; padding: 0; margin: 0; }
+.rules li { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.rules strong { display: block; font-size: 1.08rem; }
+.rules span { color: var(--muted); font-size: 0.95rem; }
+
+.notice { padding: 20px 22px; border-radius: 18px; border: 1.5px solid color-mix(in srgb, var(--accent-solid) 55%, var(--line)); background: color-mix(in srgb, var(--accent-solid) 9%, transparent); }
+.notice p { margin: 0; }
+
+.doc { max-width: 46em; padding-block: 24px 40px; }
+.doc h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 8px; }
+.doc h2 { font-size: 1.4rem; margin: 34px 0 8px; }
+.doc p, .doc li { color: var(--muted); }
+.doc p strong, .doc li strong { color: var(--fg); }
+.doc ul { padding-left: 1.2em; }
+.doc li { margin-bottom: 6px; }
+
+.foot { border-top: 1px solid var(--line); padding-block: 30px 46px; color: var(--muted); font-size: 0.95rem; display: grid; gap: 10px; }
+.foot p { margin: 0; }
+.foot a { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="./"><img src="../assets/icon.png" alt="" width="40" height="40">Sauve</a>
+  <nav class="nav" aria-label="Navigation">
+    <a href="privacy.html">Privacy</a>
+    <a href="https://github.com/Relthdrarxash/sauve">Source code</a>
+    <a href="../confidentialite.html" lang="fr">Français</a>
+  </nav>
+</header>
+<main class="wrap doc">
+<h1>Privacy policy</h1>
+<p>Last updated: November 10, 2026.</p>
+<h2>In short</h2>
+<p><strong>Sauve collects no personal data.</strong> There is no account, no server, no tracker, no advertising and no analytics. Whatever you enter or the app produces stays on your phone.</p>
+<h2>Internet</h2>
+<p>The app does not declare the Internet permission in its Android manifest. It is technically unable to send or receive data over the network.</p>
+<h2>Permissions requested</h2>
+<ul><li><strong>Vibration</strong>: for the metronome and alerts.</li>
+<li><strong>Notifications</strong>: only for an optional reminder to review the gestures, off by default. You can refuse this permission without losing any emergency feature.</li></ul>
+<h2>Calls and text messages</h2>
+<p>Sauve does not place calls itself. It opens the Phone app with the emergency number already filled in, and you start the call. For 114 it opens your messaging app. What happens next is handled by those apps.</p>
+<h2>Voice</h2>
+<p>Reading aloud uses the speech engine installed on your phone. Sauve only gives it the text to read and does not control how it works.</p>
+<h2>Data kept on the phone</h2>
+<p>The app keeps its settings on the device, for example whether the reminder is on. They are deleted if you uninstall the app or clear its data.</p>
+<h2>Contact</h2>
+<p>Privacy question: <strong>pilmil.studio@proton.me</strong>. The source code is public and can be reviewed on GitHub.</p>
+</main>
+<footer class="wrap foot">
+  <p>Sauve is one of the apps by <a href="https://relthdrarxash.github.io/">Pilmil Studio</a>.</p>
+  <p>Contact: <a href="mailto:pilmil.studio@proton.me">pilmil.studio@proton.me</a> · <a href="https://github.com/Relthdrarxash/sauve/blob/main/LICENSE">MPL-2.0 license</a></p>
+</footer>
+</body>
+</html>
