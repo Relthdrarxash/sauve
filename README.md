@@ -12,6 +12,12 @@ Sous l'effet du stress et de l'adrénaline, la mémoire flanche et la vue se ré
 
 ---
 
+## Captures d'écran
+
+<p align="center"><img src="docs/assets/fr/s1.webp" width="150" alt="Accueil"> <img src="docs/assets/fr/s2.webp" width="150" alt="Arrêt cardiaque"> <img src="docs/assets/fr/s3.webp" width="150" alt="Étouffement"> <img src="docs/assets/fr/s4.webp" width="150" alt="Hémorragie"> <img src="docs/assets/fr/s5.webp" width="150" alt="Position latérale de sécurité"> <img src="docs/assets/fr/s6.webp" width="150" alt="Hors-ligne"></p>
+
+---
+
 ## Les 4 Urgences Vitales
 
 | Urgence | Ce que fait l'application | Référentiel médical |
