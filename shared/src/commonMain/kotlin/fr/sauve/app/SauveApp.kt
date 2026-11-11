@@ -1,5 +1,12 @@
 package fr.sauve.app
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -7,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import fr.sauve.app.data.EmergencyCategory
 import fr.sauve.app.platform.LocalSauvePlatform
 import fr.sauve.app.platform.SauvePlatform
@@ -67,52 +75,61 @@ fun SauveApp(platform: SauvePlatform, navigator: SauveNavigator) {
 
     CompositionLocalProvider(LocalSauvePlatform provides platform) {
         SauveTheme(darkTheme = true) {
-            when (navigator.current) {
-                Screen.HOME -> HomeScreen(
-                    onSelectCategory = { category ->
-                        go(
-                            when (category) {
-                                EmergencyCategory.CARDIAC_ARREST -> Screen.CARDIAC
-                                EmergencyCategory.CHOKING -> Screen.CHOKING
-                                EmergencyCategory.BLEEDING -> Screen.BLEEDING
-                                EmergencyCategory.RECOVERY_AND_BURNS -> Screen.RECOVERY
-                            },
-                        )
-                    },
-                    onOpenGuide = { go(Screen.GUIDE) },
-                    onOpenAbout = { go(Screen.ABOUT) },
-                    onOpenTraining = { go(Screen.TRAINING) },
-                )
-                Screen.CARDIAC -> CardiacScreen(
-                    metronome = metronome,
-                    speechEngine = speech,
-                    onBack = { go(Screen.HOME) },
-                    onNavigateToPls = { go(Screen.RECOVERY) },
-                )
-                Screen.TRAINING -> CardiacScreen(
-                    metronome = metronome,
-                    speechEngine = speech,
-                    onBack = { go(Screen.HOME) },
-                    onNavigateToPls = { go(Screen.RECOVERY) },
-                    training = true,
-                )
-                Screen.CHOKING -> ChokingScreen(
-                    metronome = metronome,
-                    speechEngine = speech,
-                    onBack = { go(Screen.HOME) },
-                    onVictimUnconscious = { go(Screen.CARDIAC) },
-                )
-                Screen.BLEEDING -> BleedingScreen(
-                    speechEngine = speech,
-                    onBack = { go(Screen.HOME) },
-                )
-                Screen.RECOVERY -> RecoveryScreen(
-                    metronome = metronome,
-                    speechEngine = speech,
-                    onBack = { go(Screen.HOME) },
-                )
-                Screen.GUIDE -> GuideScreen(onBack = { go(Screen.HOME) })
-                Screen.ABOUT -> AboutScreen(onBack = { go(Screen.HOME) })
+            // Le fond va jusqu'aux bords ; le contenu reste hors de l'encoche, de la barre d'état
+            // et de la barre de navigation, sur iPhone comme sur Android 15 et plus (bord à bord imposé).
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .windowInsetsPadding(WindowInsets.safeDrawing),
+            ) {
+                when (navigator.current) {
+                    Screen.HOME -> HomeScreen(
+                        onSelectCategory = { category ->
+                            go(
+                                when (category) {
+                                    EmergencyCategory.CARDIAC_ARREST -> Screen.CARDIAC
+                                    EmergencyCategory.CHOKING -> Screen.CHOKING
+                                    EmergencyCategory.BLEEDING -> Screen.BLEEDING
+                                    EmergencyCategory.RECOVERY_AND_BURNS -> Screen.RECOVERY
+                                },
+                            )
+                        },
+                        onOpenGuide = { go(Screen.GUIDE) },
+                        onOpenAbout = { go(Screen.ABOUT) },
+                        onOpenTraining = { go(Screen.TRAINING) },
+                    )
+                    Screen.CARDIAC -> CardiacScreen(
+                        metronome = metronome,
+                        speechEngine = speech,
+                        onBack = { go(Screen.HOME) },
+                        onNavigateToPls = { go(Screen.RECOVERY) },
+                    )
+                    Screen.TRAINING -> CardiacScreen(
+                        metronome = metronome,
+                        speechEngine = speech,
+                        onBack = { go(Screen.HOME) },
+                        onNavigateToPls = { go(Screen.RECOVERY) },
+                        training = true,
+                    )
+                    Screen.CHOKING -> ChokingScreen(
+                        metronome = metronome,
+                        speechEngine = speech,
+                        onBack = { go(Screen.HOME) },
+                        onVictimUnconscious = { go(Screen.CARDIAC) },
+                    )
+                    Screen.BLEEDING -> BleedingScreen(
+                        speechEngine = speech,
+                        onBack = { go(Screen.HOME) },
+                    )
+                    Screen.RECOVERY -> RecoveryScreen(
+                        metronome = metronome,
+                        speechEngine = speech,
+                        onBack = { go(Screen.HOME) },
+                    )
+                    Screen.GUIDE -> GuideScreen(onBack = { go(Screen.HOME) })
+                    Screen.ABOUT -> AboutScreen(onBack = { go(Screen.HOME) })
+                }
             }
         }
     }

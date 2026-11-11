@@ -46,6 +46,14 @@ Sous l'effet du stress et de l'adrénaline, la mémoire flanche et la vue se ré
 
 ---
 
+## iPhone
+
+L'appli iPhone partage le code d'Android (Kotlin Multiplatform et Compose Multiplatform, module `shared`) : mêmes écrans, mêmes contenus, même cadence de massage. La coque iOS (`iosApp`) ajoute ce qu'Apple impose d'écrire à part : raccourcis de l'icône, widget SOS, voix et vibrations du système.
+
+Elle n'est pas encore publiée sur l'App Store. Chaque passage de la CI (workflow « iOS ») compile l'appli pour le simulateur et fournit un fichier `Sauve-simulateur.zip`, utilisable tel quel dans un simulateur iOS ou un service comme Appetize. Elle n'a pas encore été essayée sur un vrai iPhone.
+
+---
+
 ## La suite Pilmil Studio
 
 - **[Respire](https://github.com/Relthdrarxash/respire) :** Déconnexion sereine & micro-pauses sans tracking
@@ -56,3 +64,7 @@ Sous l'effet du stress et de l'adrénaline, la mémoire flanche et la vue se ré
 ## Licence
 
 Distribuée sous licence [Mozilla Public License 2.0](LICENSE) (MPL-2.0) : vous pouvez l'utiliser, l'étudier, la modifier et la redistribuer ; les fichiers que vous modifiez doivent rester publiés sous la même licence, avec leur code source.
+
+## Note sur le développement
+
+Le code de Sauve a été développé avec l'aide d'un assistant IA (Claude, d'Anthropic) : l'application elle-même n'embarque aucune intelligence artificielle, les gestes décrits suivent les référentiels publics cités plus haut (PSC1, ERC 2021), la cadence du massage est déterministe et couverte par des tests automatiques, et je maintiens personnellement le projet en répondant moi-même aux tickets et aux messages.
