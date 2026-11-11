@@ -38,6 +38,14 @@ In an emergency, adrenaline and panic induce tunnel vision and motor impairment.
 
 ---
 
+## iPhone
+
+The iPhone app shares its code with Android (Kotlin Multiplatform and Compose Multiplatform, `shared` module): same screens, same content, same compression cadence. The iOS shell (`iosApp`) adds what Apple requires to be written separately: app icon shortcuts, SOS widget, system voice and haptics.
+
+It is not on the App Store yet. Every CI run (the "iOS" workflow) builds the app for the simulator and provides a `Sauve-simulateur.zip` file that works as is in an iOS simulator or a service such as Appetize. It has not been tried on a real iPhone yet.
+
+---
+
 ## The Pilmil Studio Suite
 
 - **[Respire](https://github.com/Relthdrarxash/respire):** Screen-time pauses & calm disconnection without tracking
@@ -48,3 +56,7 @@ In an emergency, adrenaline and panic induce tunnel vision and motor impairment.
 ## License
 
 Distributed under the [Mozilla Public License 2.0](LICENSE) (MPL-2.0): you can use, study, modify and redistribute it; files you modify must stay under the same license, with their source code.
+
+## A note on development
+
+Sauve's code was developed with the help of an AI assistant (Claude, by Anthropic): the app itself embeds no artificial intelligence, the steps it describes follow the public guidelines cited above (PSC1, ERC 2021), the compression cadence is deterministic and covered by automated tests, and I personally maintain the project and answer issues and messages myself.

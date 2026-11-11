@@ -41,4 +41,19 @@ jobs:
           cd iosApp
           xcodebuild -project Sauve.xcodeproj -scheme Sauve -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' -configuration Debug \
+            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO build
+
+      # Appetize (et tout simulateur iOS) attend un .zip qui contient le dossier Sauve.app.
+      - name: Préparer l'appli pour un simulateur en ligne
+        run: |
+          cd iosApp/build/Build/Products/Debug-iphonesimulator
+          lipo -archs Sauve.app/Sauve
+          ls Sauve.app/PlugIns
+          zip -qr "$GITHUB_WORKSPACE/Sauve-simulateur.zip" Sauve.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sauve-simulateur-ios
+          path: Sauve-simulateur.zip
+          if-no-files-found: error
