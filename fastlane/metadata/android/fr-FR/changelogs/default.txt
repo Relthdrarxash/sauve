@@ -1,0 +1,1 @@
+Lancement initial de Sauve : guidage des 4 urgences vitales (arrêt cardiaque, étouffement, hémorragie, inconscience), métronome haptique 110 bpm, 100% hors-ligne sans publicité ni traceur.
