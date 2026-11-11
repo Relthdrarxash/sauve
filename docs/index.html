@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sauve : premiers secours hors-ligne</title>
+<meta name="description" content="Sauve guide les premiers secours à la voix et en vibrations : arrêt cardiaque, étouffement, hémorragie, perte de connaissance. Gratuite, libre, sans compte, sans réseau.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sauve : premiers secours hors-ligne">
+<meta property="og:description" content="Sauve guide les premiers secours à la voix et en vibrations : arrêt cardiaque, étouffement, hémorragie, perte de connaissance. Gratuite, libre, sans compte, sans réseau.">
+<link rel="icon" href="assets/icon.png" type="image/png">
+<link rel="alternate" hreflang="en" href="en/">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root {
+  --bg: #0F1216; --bg2: #222830; --fg: #F2F4F7; --muted: #A9B2BE; --line: #2E353F;
+  --accent: #F0524E; --accent-solid: #E53935; --on-accent: #fff;
+  --panel: color-mix(in srgb, #fff 5%, transparent);
+  --font: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #F6F7F9; --bg2: #E6E9EE; --fg: #14181D; --muted: #55606D; --line: #D4D9E0;
+    --accent: #C62828; --accent-solid: #C62828;
+    --panel: color-mix(in srgb, #000 4%, transparent);
+    color-scheme: light;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(48rem 34rem at 92% -6%, color-mix(in srgb, var(--accent-solid) 30%, transparent), transparent 62%),
+    radial-gradient(44rem 32rem at -8% 22%, color-mix(in srgb, #5B7C99 22%, transparent), transparent 62%),
+    radial-gradient(46rem 34rem at 100% 62%, color-mix(in srgb, var(--accent-solid) 14%, transparent), transparent 62%),
+    radial-gradient(44rem 30rem at 0% 96%, color-mix(in srgb, #5B7C99 18%, transparent), transparent 62%);
+  background-repeat: no-repeat;
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.6;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1060px; margin: 0 auto; padding-inline: 20px; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; font-size: 1.3rem; }
+.brand img { width: 40px; height: 40px; border-radius: 10px; display: block; }
+.nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.95rem; color: var(--muted); }
+.nav a { text-decoration: none; }
+.nav a:hover { color: var(--fg); text-decoration: underline; }
+
+.hero { display: grid; gap: 32px; padding-block: 28px 44px; align-items: center; }
+.kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+h1 { font-size: clamp(2.3rem, 7vw, 4rem); line-height: 1.04; letter-spacing: -0.02em; margin: 0; text-wrap: balance; font-weight: 700; }
+.lead { color: var(--muted); font-size: 1.15rem; max-width: 34em; margin: 20px 0 0; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; border: 1.5px solid var(--line); }
+.btn.primary { background: linear-gradient(120deg, var(--accent-solid), color-mix(in srgb, var(--accent-solid) 70%, #7a0d0d)); border-color: transparent; color: var(--on-accent); }
+.btn:hover { border-color: var(--fg); }
+.btn.primary:hover { filter: brightness(1.08); }
+.shot { justify-self: center; }
+.shot img { display: block; width: min(300px, 70vw); height: auto; border-radius: 28px; box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6); }
+@media (min-width: 860px) { .hero { grid-template-columns: 1.15fr 0.85fr; } .shot { justify-self: end; } }
+
+section { padding-block: 34px; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 24px; max-width: 38em; }
+
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.card { padding: 22px; border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(150deg, color-mix(in srgb, var(--accent-solid) 12%, var(--bg)), var(--panel)); min-width: 0; }
+.card h3 { margin: 0 0 8px; font-size: 1.2rem; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+.card .tag { display: inline-block; margin-bottom: 10px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+.feat { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.feat div { padding: 4px 0 4px 18px; border-left: 3px solid var(--accent-solid); min-width: 0; }
+.feat h3 { margin: 0 0 4px; font-size: 1.15rem; }
+.feat p { margin: 0; color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+
+.gallery { display: flex; gap: 16px; overflow-x: auto; padding: 4px 20px 18px; margin-inline: -20px; scroll-snap-type: x proximity; }
+.gallery img { flex: 0 0 auto; width: 210px; height: auto; border-radius: 20px; scroll-snap-align: start; border: 1px solid var(--line); display: block; }
+
+.rules { display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); border-top: 1px solid var(--line); list-style: none; padding: 0; margin: 0; }
+.rules li { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.rules strong { display: block; font-size: 1.08rem; }
+.rules span { color: var(--muted); font-size: 0.95rem; }
+
+.notice { padding: 20px 22px; border-radius: 18px; border: 1.5px solid color-mix(in srgb, var(--accent-solid) 55%, var(--line)); background: color-mix(in srgb, var(--accent-solid) 9%, transparent); }
+.notice p { margin: 0; }
+
+.doc { max-width: 46em; padding-block: 24px 40px; }
+.doc h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 8px; }
+.doc h2 { font-size: 1.4rem; margin: 34px 0 8px; }
+.doc p, .doc li { color: var(--muted); }
+.doc p strong, .doc li strong { color: var(--fg); }
+.doc ul { padding-left: 1.2em; }
+.doc li { margin-bottom: 6px; }
+
+.foot { border-top: 1px solid var(--line); padding-block: 30px 46px; color: var(--muted); font-size: 0.95rem; display: grid; gap: 10px; }
+.foot p { margin: 0; }
+.foot a { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="./"><img src="assets/icon.png" alt="" width="40" height="40">Sauve</a>
+  <nav class="nav" aria-label="Navigation">
+    <a href="confidentialite.html">Confidentialité</a>
+    <a href="https://github.com/Relthdrarxash/sauve">Code source</a>
+    <a href="en/" lang="en">English</a>
+  </nav>
+</header>
+<main>
+<div class="wrap hero">
+  <div>
+    <p class="kicker">Premiers secours anti-panique</p>
+    <h1>Les bons gestes, même quand la panique s'installe.</h1>
+    <p class="lead">Sauve vous guide pas à pas, à la voix et en vibrations, pour l'arrêt cardiaque, l'étouffement, l'hémorragie et la perte de connaissance. Elle s'ouvre en un instant et fonctionne sans réseau.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Relthdrarxash/sauve/releases">Télécharger l'APK</a>
+      <a class="btn" href="https://github.com/Relthdrarxash/sauve">Voir le code</a>
+    </div>
+  </div>
+  <div class="shot"><img src="assets/fr/s2.webp" alt="Arrêt cardiaque : métronome à 110 bpm" width="540" height="960"></div>
+</div>
+
+<section class="wrap" id="urgences">
+  <h2>Quatre urgences, un geste à la fois</h2>
+  <p class="sub">Chaque écran ne montre que ce qu'il faut faire maintenant.</p>
+  <div class="cards">
+    <article class="card"><h3>Arrêt cardiaque</h3><p>Vérification de la conscience et de la respiration, appel des secours, métronome à 110 bpm, compte des compressions (en continu ou 30:2), relais toutes les 2 minutes et guide du défibrillateur.</p></article>
+    <article class="card"><h3>Étouffement</h3><p>Obstruction partielle ou totale, cycle de 5 claques dans le dos et 5 compressions abdominales, variante pour le nourrisson, passage en un tap si la personne perd connaissance.</p></article>
+    <article class="card"><h3>Hémorragie grave</h3><p>Compression directe immédiate, chronomètre de maintien, pose du garrot avec l'heure enregistrée et consignes pour le relais médical.</p></article>
+    <article class="card"><h3>Inconscience et brûlures</h3><p>Position latérale de sécurité illustrée étape par étape, surveillance de la respiration, refroidissement de 15 minutes pour une brûlure, test FAST pour l'AVC.</p></article>
+  </div>
+</section>
+
+<section class="wrap" id="mains">
+  <h2>Pensée pour les mains occupées</h2>
+  <div class="feat" style="margin-top:20px">
+    <div><h3>Une voix</h3><p>Le guidage est lu à voix haute par la synthèse vocale de votre téléphone, pour garder les yeux sur la personne.</p></div>
+    <div><h3>Des vibrations</h3><p>Un métronome à 110 battements par minute vibre dans la poche et cadence les compressions.</p></div>
+    <div><h3>Un appel en un tap</h3><p>Accès direct au 15, au 18, au 112 et au 114 (SMS pour les personnes sourdes ou malentendantes).</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="images">
+  <h2>L'application en images</h2>
+  <div class="gallery" role="list">
+    <img role="listitem" src="assets/fr/s1.webp" alt="Écran d'accueil" width="210" height="373" loading="lazy">
+    <img role="listitem" src="assets/fr/s2.webp" alt="Arrêt cardiaque : métronome à 110 bpm" width="210" height="373" loading="lazy">
+    <img role="listitem" src="assets/fr/s3.webp" alt="Étouffement : claques et compressions" width="210" height="373" loading="lazy">
+    <img role="listitem" src="assets/fr/s4.webp" alt="Hémorragie : compression directe" width="210" height="373" loading="lazy">
+    <img role="listitem" src="assets/fr/s5.webp" alt="Position latérale de sécurité" width="210" height="373" loading="lazy">
+    <img role="listitem" src="assets/fr/s6.webp" alt="Fonctionne sans réseau" width="210" height="373" loading="lazy">
+  </div>
+</section>
+
+<section class="wrap" id="vie-privee">
+  <h2>Rien ne sort du téléphone</h2>
+  <ul class="rules" style="margin-top:20px">
+    <li><strong>Aucun compte</strong><span>Elle s'ouvre, elle sert.</span></li>
+    <li><strong>Aucune publicité</strong><span>Ni bannière, ni achat intégré.</span></li>
+    <li><strong>Aucun traceur</strong><span>Aucune mesure d'usage.</span></li>
+    <li><strong>Aucun accès à Internet</strong><span>L'appli n'en a même pas la permission.</span></li>
+    <li><strong>Gratuite et libre</strong><span>Code ouvert sous licence MPL-2.0.</span></li>
+  </ul>
+</section>
+
+<section class="wrap" id="sources">
+  <h2>Des références publiées</h2>
+  <p class="sub">Les conduites à tenir s'appuient sur les recommandations de l'European Resuscitation Council (ERC 2021) et sur les référentiels nationaux de premiers secours (PSC1).</p>
+  <div class="notice"><p>Sauve ne remplace pas une formation aux premiers secours. En cas d'urgence, appelez d'abord le 15 ou le 112, puis suivez les consignes de l'appli.</p></div>
+</section>
+</main>
+<footer class="wrap foot">
+  <p>Sauve fait partie des applis de <a href="https://relthdrarxash.github.io/">Pilmil Studio</a>.</p>
+  <p>Contact : <a href="mailto:pilmil.studio@proton.me">pilmil.studio@proton.me</a> · <a href="https://github.com/Relthdrarxash/sauve/blob/main/LICENSE">Licence MPL-2.0</a></p>
+</footer>
+</body>
+</html>

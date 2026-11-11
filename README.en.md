@@ -12,6 +12,12 @@ In an emergency, adrenaline and panic induce tunnel vision and motor impairment.
 
 ---
 
+## Screenshots
+
+<p align="center"><img src="docs/assets/en/s1.webp" width="150" alt="Home"> <img src="docs/assets/en/s2.webp" width="150" alt="Cardiac arrest"> <img src="docs/assets/en/s3.webp" width="150" alt="Choking"> <img src="docs/assets/en/s4.webp" width="150" alt="Severe bleeding"> <img src="docs/assets/en/s5.webp" width="150" alt="Recovery position"> <img src="docs/assets/en/s6.webp" width="150" alt="Offline"></p>
+
+---
+
 ## The 4 Vital Emergencies
 
 | Emergency | What the app does | Medical guidelines |

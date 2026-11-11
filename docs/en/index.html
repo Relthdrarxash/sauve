@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sauve: offline first aid</title>
+<meta name="description" content="Sauve guides first aid with voice and vibration: cardiac arrest, choking, severe bleeding, unconsciousness. Free, open source, no account, no network.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sauve: offline first aid">
+<meta property="og:description" content="Sauve guides first aid with voice and vibration: cardiac arrest, choking, severe bleeding, unconsciousness. Free, open source, no account, no network.">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="alternate" hreflang="fr" href="../">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root {
+  --bg: #0F1216; --bg2: #222830; --fg: #F2F4F7; --muted: #A9B2BE; --line: #2E353F;
+  --accent: #F0524E; --accent-solid: #E53935; --on-accent: #fff;
+  --panel: color-mix(in srgb, #fff 5%, transparent);
+  --font: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #F6F7F9; --bg2: #E6E9EE; --fg: #14181D; --muted: #55606D; --line: #D4D9E0;
+    --accent: #C62828; --accent-solid: #C62828;
+    --panel: color-mix(in srgb, #000 4%, transparent);
+    color-scheme: light;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(48rem 34rem at 92% -6%, color-mix(in srgb, var(--accent-solid) 30%, transparent), transparent 62%),
+    radial-gradient(44rem 32rem at -8% 22%, color-mix(in srgb, #5B7C99 22%, transparent), transparent 62%),
+    radial-gradient(46rem 34rem at 100% 62%, color-mix(in srgb, var(--accent-solid) 14%, transparent), transparent 62%),
+    radial-gradient(44rem 30rem at 0% 96%, color-mix(in srgb, #5B7C99 18%, transparent), transparent 62%);
+  background-repeat: no-repeat;
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.6;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1060px; margin: 0 auto; padding-inline: 20px; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; font-size: 1.3rem; }
+.brand img { width: 40px; height: 40px; border-radius: 10px; display: block; }
+.nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.95rem; color: var(--muted); }
+.nav a { text-decoration: none; }
+.nav a:hover { color: var(--fg); text-decoration: underline; }
+
+.hero { display: grid; gap: 32px; padding-block: 28px 44px; align-items: center; }
+.kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+h1 { font-size: clamp(2.3rem, 7vw, 4rem); line-height: 1.04; letter-spacing: -0.02em; margin: 0; text-wrap: balance; font-weight: 700; }
+.lead { color: var(--muted); font-size: 1.15rem; max-width: 34em; margin: 20px 0 0; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; border: 1.5px solid var(--line); }
+.btn.primary { background: linear-gradient(120deg, var(--accent-solid), color-mix(in srgb, var(--accent-solid) 70%, #7a0d0d)); border-color: transparent; color: var(--on-accent); }
+.btn:hover { border-color: var(--fg); }
+.btn.primary:hover { filter: brightness(1.08); }
+.shot { justify-self: center; }
+.shot img { display: block; width: min(300px, 70vw); height: auto; border-radius: 28px; box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6); }
+@media (min-width: 860px) { .hero { grid-template-columns: 1.15fr 0.85fr; } .shot { justify-self: end; } }
+
+section { padding-block: 34px; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 24px; max-width: 38em; }
+
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.card { padding: 22px; border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(150deg, color-mix(in srgb, var(--accent-solid) 12%, var(--bg)), var(--panel)); min-width: 0; }
+.card h3 { margin: 0 0 8px; font-size: 1.2rem; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+.card .tag { display: inline-block; margin-bottom: 10px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+.feat { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.feat div { padding: 4px 0 4px 18px; border-left: 3px solid var(--accent-solid); min-width: 0; }
+.feat h3 { margin: 0 0 4px; font-size: 1.15rem; }
+.feat p { margin: 0; color: var(--muted); font-size: 0.98rem; line-height: 1.5; }
+
+.gallery { display: flex; gap: 16px; overflow-x: auto; padding: 4px 20px 18px; margin-inline: -20px; scroll-snap-type: x proximity; }
+.gallery img { flex: 0 0 auto; width: 210px; height: auto; border-radius: 20px; scroll-snap-align: start; border: 1px solid var(--line); display: block; }
+
+.rules { display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); border-top: 1px solid var(--line); list-style: none; padding: 0; margin: 0; }
+.rules li { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.rules strong { display: block; font-size: 1.08rem; }
+.rules span { color: var(--muted); font-size: 0.95rem; }
+
+.notice { padding: 20px 22px; border-radius: 18px; border: 1.5px solid color-mix(in srgb, var(--accent-solid) 55%, var(--line)); background: color-mix(in srgb, var(--accent-solid) 9%, transparent); }
+.notice p { margin: 0; }
+
+.doc { max-width: 46em; padding-block: 24px 40px; }
+.doc h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 8px; }
+.doc h2 { font-size: 1.4rem; margin: 34px 0 8px; }
+.doc p, .doc li { color: var(--muted); }
+.doc p strong, .doc li strong { color: var(--fg); }
+.doc ul { padding-left: 1.2em; }
+.doc li { margin-bottom: 6px; }
+
+.foot { border-top: 1px solid var(--line); padding-block: 30px 46px; color: var(--muted); font-size: 0.95rem; display: grid; gap: 10px; }
+.foot p { margin: 0; }
+.foot a { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="./"><img src="../assets/icon.png" alt="" width="40" height="40">Sauve</a>
+  <nav class="nav" aria-label="Navigation">
+    <a href="privacy.html">Privacy</a>
+    <a href="https://github.com/Relthdrarxash/sauve">Source code</a>
+    <a href="../" lang="fr">Français</a>
+  </nav>
+</header>
+<main>
+<div class="wrap hero">
+  <div>
+    <p class="kicker">Anti-panic first aid</p>
+    <h1>The right moves, even when panic sets in.</h1>
+    <p class="lead">Sauve guides you step by step, with voice and vibration, through cardiac arrest, choking, severe bleeding and unconsciousness. It opens instantly and works without a network.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Relthdrarxash/sauve/releases">Download the APK</a>
+      <a class="btn" href="https://github.com/Relthdrarxash/sauve">View the code</a>
+    </div>
+  </div>
+  <div class="shot"><img src="../assets/en/s2.webp" alt="Cardiac arrest: 110 bpm metronome" width="540" height="960"></div>
+</div>
+
+<section class="wrap" id="urgences">
+  <h2>Four emergencies, one move at a time</h2>
+  <p class="sub">Each screen shows only what to do right now.</p>
+  <div class="cards">
+    <article class="card"><h3>Cardiac arrest</h3><p>Consciousness and breathing check, call for help, 110 bpm metronome, compression count (continuous or 30:2), rescuer relay every 2 minutes and a defibrillator guide.</p></article>
+    <article class="card"><h3>Choking</h3><p>Partial or complete obstruction, a cycle of 5 back blows and 5 abdominal thrusts, an infant variation, and a one-tap switch if the person loses consciousness.</p></article>
+    <article class="card"><h3>Severe bleeding</h3><p>Immediate direct pressure, a hold timer, tourniquet guidance with the time logged, and notes for the medical handover.</p></article>
+    <article class="card"><h3>Unconscious and burns</h3><p>Step-by-step recovery position, breathing monitoring, 15-minute cooling for burns, and the FAST stroke check.</p></article>
+  </div>
+</section>
+
+<section class="wrap" id="mains">
+  <h2>Built for busy hands</h2>
+  <div class="feat" style="margin-top:20px">
+    <div><h3>A voice</h3><p>The guidance is read aloud by your phone's speech engine, so your eyes stay on the person.</p></div>
+    <div><h3>Vibration</h3><p>A 110 beats-per-minute metronome pulses in your pocket and sets the pace for compressions.</p></div>
+    <div><h3>One-tap calling</h3><p>Direct access to 15, 18, 112 and 114 (text message for deaf and hard-of-hearing people).</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="images">
+  <h2>The app in pictures</h2>
+  <div class="gallery" role="list">
+    <img role="listitem" src="../assets/en/s1.webp" alt="Home screen" width="210" height="373" loading="lazy">
+    <img role="listitem" src="../assets/en/s2.webp" alt="Cardiac arrest: 110 bpm metronome" width="210" height="373" loading="lazy">
+    <img role="listitem" src="../assets/en/s3.webp" alt="Choking: back blows and thrusts" width="210" height="373" loading="lazy">
+    <img role="listitem" src="../assets/en/s4.webp" alt="Severe bleeding: direct pressure" width="210" height="373" loading="lazy">
+    <img role="listitem" src="../assets/en/s5.webp" alt="Recovery position" width="210" height="373" loading="lazy">
+    <img role="listitem" src="../assets/en/s6.webp" alt="Works without a network" width="210" height="373" loading="lazy">
+  </div>
+</section>
+
+<section class="wrap" id="vie-privee">
+  <h2>Nothing leaves the phone</h2>
+  <ul class="rules" style="margin-top:20px">
+    <li><strong>No account</strong><span>It opens, it works.</span></li>
+    <li><strong>No ads</strong><span>No banner, no in-app purchase.</span></li>
+    <li><strong>No trackers</strong><span>No usage measurement.</span></li>
+    <li><strong>No Internet access</strong><span>The app does not even have the permission.</span></li>
+    <li><strong>Free and open</strong><span>Open code under the MPL-2.0 license.</span></li>
+  </ul>
+</section>
+
+<section class="wrap" id="sources">
+  <h2>Published guidelines</h2>
+  <p class="sub">The procedures follow the European Resuscitation Council recommendations (ERC 2021) and the French national first aid references (PSC1).</p>
+  <div class="notice"><p>Sauve does not replace first aid training. In an emergency, call 15 or 112 first, then follow the app's instructions.</p></div>
+</section>
+</main>
+<footer class="wrap foot">
+  <p>Sauve is one of the apps by <a href="https://relthdrarxash.github.io/">Pilmil Studio</a>.</p>
+  <p>Contact: <a href="mailto:pilmil.studio@proton.me">pilmil.studio@proton.me</a> · <a href="https://github.com/Relthdrarxash/sauve/blob/main/LICENSE">MPL-2.0 license</a></p>
+</footer>
+</body>
+</html>
