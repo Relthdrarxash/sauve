@@ -173,6 +173,66 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0
   </ul>
 </section>
 
+<section class="wrap" id="simulateur">
+  <h2>Simulateur de métronome RCP (110 BPM)</h2>
+  <p class="sub">Testez la cadence des compressions thoraciques (110 battements par minute) directement dans votre navigateur.</p>
+  <div class="notice" style="display:grid;gap:14px;justify-items:center;text-align:center">
+    <div id="sa-pulse" style="width:96px;height:96px;border-radius:50%;border:3px solid var(--accent-solid);display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:800;transition:transform 0.1s ease">0</div>
+    <p id="sa-label" style="color:var(--muted)">Appuyez sur Démarrer pour lancer la cadence à 110 BPM.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <button type="button" id="sa-toggle" class="btn primary" style="cursor:pointer">Démarrer le métronome</button>
+      <button type="button" id="sa-mode" class="btn" style="cursor:pointer">Mode : 30:2</button>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  let timer = null, count = 0, mode302 = true, ctx = null;
+  const pulse = document.getElementById("sa-pulse");
+  const label = document.getElementById("sa-label");
+  const toggle = document.getElementById("sa-toggle");
+  const modeBtn = document.getElementById("sa-mode");
+  function clickSound(accent) {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.frequency.value = accent ? 980 : 720;
+    g.gain.setValueAtTime(0.25, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+    osc.connect(g).connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.07);
+  }
+  function step() {
+    count = mode302 ? (count % 30) + 1 : count + 1;
+    clickSound(mode302 && count === 30);
+    pulse.textContent = count;
+    pulse.style.transform = "scale(1.14)";
+    setTimeout(() => { pulse.style.transform = "scale(1)"; }, 110);
+    label.textContent = (mode302 && count === 30)
+      ? "30 compressions : 2 insufflations (ou continuez sans pause si non formé)"
+      : "Cadence : 110 compressions / minute";
+  }
+  toggle.addEventListener("click", () => {
+    if (timer) {
+      clearInterval(timer); timer = null; count = 0;
+      pulse.textContent = "0";
+      toggle.textContent = "Démarrer le métronome";
+      label.textContent = "Métronome arrêté.";
+    } else {
+      count = 0; step();
+      timer = setInterval(step, Math.round(60000 / 110));
+      toggle.textContent = "Arrêter";
+    }
+  });
+  modeBtn.addEventListener("click", () => {
+    mode302 = !mode302;
+    modeBtn.textContent = mode302 ? "Mode : 30:2" : "Mode : Continu";
+  });
+})();
+</script>
+
 <section class="wrap" id="sources">
   <h2>Des références publiées</h2>
   <p class="sub">Les conduites à tenir s'appuient sur les recommandations de l'European Resuscitation Council (ERC 2021) et sur les référentiels nationaux de premiers secours (PSC1).</p>
