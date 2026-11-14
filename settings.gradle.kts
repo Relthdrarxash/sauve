@@ -13,5 +13,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Sauve"
+includeBuild("pilmil-core")
 include(":app")
 include(":shared")

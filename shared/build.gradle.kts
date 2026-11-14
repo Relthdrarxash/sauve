@@ -28,6 +28,7 @@ kotlin {
             api(compose.ui)
             implementation(compose.components.resources)
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+            implementation("fr.pilmil.core:core-platform:0.1.0")
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
