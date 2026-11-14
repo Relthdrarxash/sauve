@@ -8,7 +8,7 @@ An **anti-panic first aid** Android application, 100% offline, free, ad-free, wi
 
 In an emergency, adrenaline and panic induce tunnel vision and motor impairment. **Sauve** is designed to open in under 300 ms, skip all non-essential menus, and provide step-by-step hands-free voice and haptic feedback.
 
-**[Sauve website](https://relthdrarxash.github.io/sauve/)** · **[Google Play](https://play.google.com/store/apps/details?id=fr.sauve.app)** · **[Download the preview build (APK)](https://github.com/Relthdrarxash/sauve/releases/tag/dev)**
+**[Sauve website](https://relthdrarxash.github.io/sauve/)** · **[Download the preview build (APK)](https://github.com/Relthdrarxash/sauve/releases/tag/dev)**
 
 ---
 
