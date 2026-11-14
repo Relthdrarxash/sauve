@@ -25,6 +25,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -99,6 +100,19 @@ fun AboutScreen(
                     Text(tr("• Démarrage immédiat sans compte ni écran de veille", "• Starts instantly, no account, no splash screen"), fontSize = 13.sp)
                     Text(tr("• Métronome haptique haute précision à 110 bpm", "• High-precision haptic metronome at 110 bpm"), fontSize = 13.sp)
                     Text(tr("• Synthèse vocale pas-à-pas mains-libres", "• Hands-free, step-by-step voice guidance"), fontSize = 13.sp)
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                val uriHandler = LocalUriHandler.current
+                TextButton(
+                    onClick = {
+                        runCatching { uriHandler.openUri("mailto:pilmil.studio@proton.me?subject=Sauve") }
+                    },
+                ) {
+                    Text(
+                        tr("Contact : pilmil.studio@proton.me", "Contact: pilmil.studio@proton.me"),
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
                 }
             }
         }
