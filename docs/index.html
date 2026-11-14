@@ -174,62 +174,88 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0
 </section>
 
 <section class="wrap" id="simulateur">
-  <h2>Simulateur de métronome RCP (110 BPM)</h2>
-  <p class="sub">Testez la cadence des compressions thoraciques (110 battements par minute) directement dans votre navigateur.</p>
-  <div class="notice" style="display:grid;gap:14px;justify-items:center;text-align:center">
-    <div id="sa-pulse" style="width:96px;height:96px;border-radius:50%;border:3px solid var(--accent-solid);display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:800;transition:transform 0.1s ease">0</div>
-    <p id="sa-label" style="color:var(--muted)">Appuyez sur Démarrer pour lancer la cadence à 110 BPM.</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-      <button type="button" id="sa-toggle" class="btn primary" style="cursor:pointer">Démarrer le métronome</button>
-      <button type="button" id="sa-mode" class="btn" style="cursor:pointer">Mode : 30:2</button>
+  <h2>Essayer l'application en direct</h2>
+  <p class="sub">Parcourez l'écran d'urgence OLED de Sauve : appels directs, arrêt cardiaque avec métronome à 110 BPM et gestes d'étouffement.</p>
+  <div style="display:flex;justify-content:center">
+    <div style="width:min(340px,100%);border:8px solid #2b2b2b;border-radius:32px;background:#0a0a0a;color:#f5f5f5;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.35);font-size:14px">
+      <div style="background:#141414;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #262626">
+        <strong>Sauve</strong>
+        <span style="font-size:11px;color:#ef4444;font-weight:700">15 · 18 · 112 · 114</span>
+      </div>
+      <div id="sa-screen" style="padding:14px;min-height:340px;display:grid;gap:10px;align-content:start"></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #262626;background:#111">
+        <button type="button" class="sa-tab" data-tab="home" style="padding:10px 4px;border:0;background:none;font:inherit;cursor:pointer">Accueil</button>
+        <button type="button" class="sa-tab" data-tab="cpr" style="padding:10px 4px;border:0;background:none;font:inherit;cursor:pointer">Arrêt (110)</button>
+        <button type="button" class="sa-tab" data-tab="choke" style="padding:10px 4px;border:0;background:none;font:inherit;cursor:pointer">Étouffement</button>
+      </div>
     </div>
   </div>
 </section>
 <script>
 (function(){
-  let timer = null, count = 0, mode302 = true, ctx = null;
-  const pulse = document.getElementById("sa-pulse");
-  const label = document.getElementById("sa-label");
-  const toggle = document.getElementById("sa-toggle");
-  const modeBtn = document.getElementById("sa-mode");
+  let tab = "home", timer = null, count = 0, ctx = null;
+  function stopMetronome() { if (timer) { clearInterval(timer); timer = null; } }
   function clickSound(accent) {
     if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const g = ctx.createGain();
+    const now = ctx.currentTime, osc = ctx.createOscillator(), g = ctx.createGain();
     osc.frequency.value = accent ? 980 : 720;
     g.gain.setValueAtTime(0.25, now);
     g.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
     osc.connect(g).connect(ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.07);
+    osc.start(now); osc.stop(now + 0.07);
+  }
+  function render() {
+    document.querySelectorAll(".sa-tab").forEach(b => {
+      const act = b.dataset.tab === tab;
+      b.style.color = act ? "#ef4444" : "#9ca3af";
+      b.style.fontWeight = act ? "700" : "500";
+    });
+    const scr = document.getElementById("sa-screen");
+    if (tab === "home") {
+      stopMetronome();
+      scr.innerHTML = `
+        <div style="font-size:12px;color:#9ca3af">Choisissez la situation immédiate :</div>
+        <button type="button" data-go="cpr" style="text-align:left;padding:12px;border-radius:14px;border:1px solid #ef4444;background:#1f1212;color:#fff;font:inherit;cursor:pointer"><strong>Arrêt cardiaque</strong><div style="font-size:12px;color:#fca5a5">Massage &amp; métronome 110 BPM</div></button>
+        <button type="button" data-go="choke" style="text-align:left;padding:12px;border-radius:14px;border:1px solid #333;background:#161616;color:#fff;font:inherit;cursor:pointer"><strong>Étouffement</strong><div style="font-size:12px;color:#9ca3af">5 claques dans le dos + 5 compressions</div></button>
+        <div style="padding:12px;border-radius:14px;border:1px solid #333;background:#161616;font-size:13px"><strong>Hémorragie / PLS</strong><div style="font-size:12px;color:#9ca3af">Compression directe &amp; chronomètre</div></div>
+      `;
+    } else if (tab === "cpr") {
+      scr.innerHTML = `
+        <div style="text-align:center;display:grid;gap:12px;justify-items:center;padding-top:10px">
+          <div style="font-size:13px;color:#fca5a5">Appuyez fort au centre de la poitrine (5–6 cm)</div>
+          <div id="sa-pulse" style="width:94px;height:94px;border-radius:50%;border:3px solid #ef4444;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:800;transition:transform 0.1s ease">${count}</div>
+          <div id="sa-label" style="font-size:12px;color:#9ca3af">Cadence : 110 battements / minute</div>
+          <button type="button" id="sa-toggle" style="padding:10px 18px;border-radius:999px;border:0;background:#ef4444;color:#fff;font:inherit;font-weight:700;cursor:pointer">${timer ? "Arrêter" : "Démarrer le métronome"}</button>
+        </div>
+      `;
+    } else {
+      stopMetronome();
+      scr.innerHTML = `
+        <div style="font-weight:800;font-size:16px">Étouffement (adulte / enfant)</div>
+        <div style="padding:12px;border-radius:14px;border:1px solid #333;background:#161616;font-size:13px">1. Penchez la personne en avant et donnez <strong>5 claques vigoureuses</strong> entre les omoplates.</div>
+        <div style="padding:12px;border-radius:14px;border:1px solid #333;background:#161616;font-size:13px">2. Si inefficace : <strong>5 compressions abdominales</strong> vers l'intérieur et vers le haut.</div>
+      `;
+    }
   }
   function step() {
-    count = mode302 ? (count % 30) + 1 : count + 1;
-    clickSound(mode302 && count === 30);
-    pulse.textContent = count;
-    pulse.style.transform = "scale(1.14)";
-    setTimeout(() => { pulse.style.transform = "scale(1)"; }, 110);
-    label.textContent = (mode302 && count === 30)
-      ? "30 compressions : 2 insufflations (ou continuez sans pause si non formé)"
-      : "Cadence : 110 compressions / minute";
+    count = (count % 30) + 1;
+    clickSound(count === 30);
+    const p = document.getElementById("sa-pulse"), l = document.getElementById("sa-label");
+    if (!p) return;
+    p.textContent = count;
+    p.style.transform = "scale(1.14)";
+    setTimeout(() => { if (p) p.style.transform = "scale(1)"; }, 110);
+    if (l) l.textContent = count === 30 ? "30 compressions : 2 insufflations (ou continuez)" : "Cadence : 110 compressions / minute";
   }
-  toggle.addEventListener("click", () => {
-    if (timer) {
-      clearInterval(timer); timer = null; count = 0;
-      pulse.textContent = "0";
-      toggle.textContent = "Démarrer le métronome";
-      label.textContent = "Métronome arrêté.";
-    } else {
-      count = 0; step();
-      timer = setInterval(step, Math.round(60000 / 110));
-      toggle.textContent = "Arrêter";
+  document.getElementById("simulateur").addEventListener("click", (e) => {
+    const t = e.target.closest(".sa-tab"); if (t) { tab = t.dataset.tab; render(); return; }
+    const g = e.target.closest("[data-go]"); if (g) { tab = g.dataset.go; render(); return; }
+    if (e.target.id === "sa-toggle") {
+      if (timer) { stopMetronome(); count = 0; render(); }
+      else { count = 0; step(); timer = setInterval(step, Math.round(60000 / 110)); e.target.textContent = "Arrêter"; }
     }
   });
-  modeBtn.addEventListener("click", () => {
-    mode302 = !mode302;
-    modeBtn.textContent = mode302 ? "Mode : 30:2" : "Mode : Continu";
-  });
+  render();
 })();
 </script>
 
